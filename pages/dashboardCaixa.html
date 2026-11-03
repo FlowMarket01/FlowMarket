@@ -61,7 +61,7 @@
                 <span class="alertaLabel">Início:</span>
                 <strong>13h20</strong>
             </div>
-            <a href="registros.html"><button class="alertaBotao">Visualizar</button></a>
+            <a href="#sltCaixas"><button onclick="redirecionar()" class="alertaBotao">Visualizar</button></a>
         </div>
 
       </div>
@@ -342,6 +342,12 @@
       }
 
       sltPeriodo.addEventListener("change", atualizarPeriodo);
+      
+      function redirecionar() {
+        sltCaixas.value='Caixa 3';
+        atualizarPeriodo() 
+
+      }
     </script>
   </body>
 </html>
