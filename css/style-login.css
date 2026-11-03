@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: #0F4C3A;
+    background-color: #F4F7F5;
+}
+
+.imagens {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 50px;
+}
+
+.logoCarrinho {
+    width: 45px;
+    height: 45px;
+}
+
+.logoNome {
+    width: 160px;
+    height: auto;
+}
+
+.backDosGraunds {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 30px 16px 40px;
+}
+
+.backDosGraunds form {
+    width: 100%;
+    max-width: 600px;
+}
+
+.containerPrincipal {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 40px;
+    border: 1px solid #D5DDD8;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.formatacao {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 24px;
+    line-height: 1.5;
+}
+
+.textoFormulario {
+    display: flex;
+    flex-direction: column;
+    color: #0F4C3A;
+}
+
+.titulo h3 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    line-height: 1.4;
+    font-weight: 700;
+}
+
+.descricao {
+    margin: 0 0 24px;
+    color: #828181;
+    font-size: 14px;
+}
+
+.mensagemLogin {
+    margin: -16px 0 0;
+    color: #B42318;
+    font-size: 14px;
+}
+
+.textoFormulario label,
+.linhaSenha label {
+    margin-bottom: 7px;
+    color: #0F4C3A;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.textoFormulario input {
+    width: 100%;
+    height: 40px;
+    padding: 0 15px;
+    border: 1px solid #D5DDD8;
+    border-radius: 6px;
+    color: #0F4C3A;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    outline: none;
+}
+
+.textoFormulario input:focus {
+    border-color: #0F4C3A;
+}
+
+#ipt_email {
+    margin-bottom: 24px;
+}
+
+.linhaSenha {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 7px;
+}
+
+.linhaSenha label {
+    margin: 0;
+}
+
+.esqueciSenha {
+    color: #64877E;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.campoSenha {
+    position: relative;
+}
+
+.campoSenha input {
+    padding-right: 40px;
+}
+
+.iconeOlho {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #737D78;
+    font-size: 16px;
+}
+
+.containerSecundarioVerde {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 40px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: #0F4C3A;
+    color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.containerSecundarioVerde:hover {
+    background-color: #6AAE48;
+}
+
+.cadastro {
+    margin: 20px 0 0;
+    color: #0F4C3A;
+    font-size: 14px;
+    text-align: center;
+}
+
+.cadastro a {
+    color: #0F4C3A;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .imagens {
+        margin-top: 32px;
+    }
+
+    .containerPrincipal {
+        padding: 28px 24px;
+    }
+}

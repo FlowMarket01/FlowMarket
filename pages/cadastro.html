@@ -76,7 +76,7 @@
     </form>
 
     <div class="text-login">
-        <p>Já tem uma conta? <a href="#">Entrar</a></p>
+        <p>Já tem uma conta? <a href="../pages/login.html">Entrar</a></p>
     </div>
 
     <script>
@@ -194,6 +194,7 @@
                 let dados_cadastro = {
                     nome: ipt_nome.value,
                     email: ipt_email.value,
+                    senha: ipt_senha.value,
                     telefone: ipt_telefone.value,
                 }
 
@@ -201,6 +202,8 @@
                 console.log(localStorage.getItem('dados_cadastro'))
 
                 alert('Cadastro validado!')
+
+                window.location.href = 'login.html';
             } else {
                 alert('Cadastro Incompleto!')
             }

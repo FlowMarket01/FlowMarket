@@ -1,16 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <title>FlowMarket</title>
-    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
-    <section class="fundo_secaoHero">
+    <header class="cabecaLhoDash">
+        <h1>
+            <div class="molduraLogo">
+                <img src="./img/iconCart.png" alt="FlowMarket" />
+            </div>
+            Flow<span>Market</span>
+        </h1>
+        <nav class="navegacaoPrincipal" aria-label="Navegação principal">
+            <a href="#hero">Início</a>
+            <a href="#problema">Problema</a>
+            <a href="#como-funciona">Como funciona</a>
+            <a href="#solucao">Solução</a>
+        </nav>
+        <div class="acoesCabecalho">
+            <a class="botaoEntrar" href="./pages/login.html">Entrar</a>
+            <a class="botaoCadastrar" href="./pages/cadastro.html">Cadastrar</a>
+        </div>
+    </header>
+    <section class="fundo_secaoHero" id="hero">
         <section class="divisao_secaoHero">
             <section class="texto_esquerdo_secaoHero">
                 <h1 class="titulo_secaoHero">Entenda o fluxo dos seus clientes e acabe com as filas nos caixas em tempo
@@ -28,103 +45,13 @@
                     <button class="botao_agendar_secaoHero">Agendar demonstração gratuita</button>
                     <button class="botao_comoFunciona_secaoHero">Ver Como funciona</button>
                 </div>
-
-            </section>
-            <section class="cartao_secaoHero">
-                <div class="sub_lojaCentral_secaoHero"><img src="icone_mercadoVerde.png"> Loja Central - Supermercado
-                    <br>Modelo</div>
-                <section class="espaco_card_secaoHero">
-                    <section class="mini_cards_cinzas_secaoHero">
-                        <span class="mini_sub_tit_dosCards_secaoHero">ENTRADAS HOJE</span>
-                        <h4 class="mini_tit_dosCards_secaoHero">3.842</h4>
-                        <span class="mini_legenda_secaoHero">12% MAIOR</span>
-                    </section>
-                    <section class="mini_cards_cinzas_secaoHero">
-                        <span class="mini_sub_tit_dosCards_secaoHero">CONVERSÃO NO CAIXA</span>
-                        <h4 class="mini_tit_dosCards_secaoHero">64,7%</h4>
-                        <span class="mini_legenda_secaoHero">+2 p.p</span>
-
-                    </section>
-                    <section class="mini_cards_cinzas_secaoHero">
-                        <span class="mini_sub_tit_dosCards_secaoHero">PICO DE FILA</span>
-                        <h4 class="mini_tit_dosCards_secaoHero">7</h4>
-                        <span class="mini_legenda_secaoHero">às 12:04</span>
-                    </section>
-                </section>
-
-                <section class="cartao_subtexto_legenda_secaoHero">
-                    <p class="cartao_subtitulo_secaoHero">Fluxo por área - hoje</p>
-
-                    <span class="cartao_legendaGrafico_secao_hero">
-
-                        <span class="mini_qdd_verde_secaoHero"></span>
-                        Hoje
-
-
-                        <span class="mini_qdd_media_secaoHero"></span>
-                        Média 7 dias
-
-
-                    </span>
-                </section>
-
-                <section class="barras_espacos">
-                    <div class="barra_unidade_secaoHero">
-                        <span class="barras_legenda_secaoHero">Entrada</span>
-                        <span class="entrada_barra_secaoHero"></span>
-                        <span class="barra_num_secaoHero">3.842</span>
-                    </div>
-
-                    <div class="barra_unidade_secaoHero">
-                        <span class="barras_legenda_secaoHero">Corredor 1</span>
-                        <span class="corredor1_media_secaoHero"><span class="corredor1_secaoHero"></span></span>
-                        <span class="barra_num_secaoHero">2.910</span>
-                    </div>
-
-                    <div class="barra_unidade_secaoHero">
-                        <span class="barras_legenda_secaoHero">Corredor 2</span>
-                        <span class="corredor2_secaoHero"></span>
-                        <span class="barra_num_secaoHero">1.649</span>
-                    </div>
-
-                    <div class="barra_unidade_secaoHero">
-                        <span class="barras_legenda_secaoHero">Corredor 3</span>
-                        <span class="corredor3_secaoHero_media"><span class="corredor3_secaoHero"></span></span>
-                        <span class="barra_num_secaoHero">1.105</span>
-                    </div>
-
-                    <div class="barra_unidade_secaoHero">
-                        <span class="barras_legenda_secaoHero">Caixa</span>
-                        <span class="caixa_secaoHero"></span>
-                        <span class="barra_num_secaoHero">2.628</span>
-                    </div>
-
-                </section>
-
-                <div class="aviso_secaoHero">
-                    <div class="aviso_icone">
-                        ⚠
-                    </div>
-
-                    <div class="aviso_conteudo_secaoHero">
-                        <h5 class="aviso_titulo_secaoHero">
-                            Atenção: caixa com alto fluxo
-                        </h5>
-
-                        <p class="aviso_paragrafo_secaoHero">
-                            Caixa número 4 com alto número de clientes.
-                            Recomendamos distribuir para o caixa 1 que possui
-                            menor fluxo.
-                        </p>
-                    </div>
-                </div>
             </section>
         </section>
     </section>
 
 
     <!--PROBLEMA-->
-    <section class="divisao_secaoProblema">
+    <section class="divisao_secaoProblema" id="problema">
         <section>
             <span class="cego_secaoProblema">◆</span><span class="paragrafo_secaoProblema"> O PONTO CEGO</span>
 
@@ -201,26 +128,22 @@
 
 
 
-    <div class="body-f">
-
-        <div class="container">
-
+    <div class="body-f" id="como-funciona">
             <div class="div-header">
-                <span class="sub-tag">◆ COMO FUNCIONA</span>
+                <span class="cego_secaoProblema">◆</span>
+                <span class="paragrafo_secaoProblema">COMO FUNCIONA</span>
                 <h1 class="h1-como_funciona">Da porta à resposta,<br>em três partes.</h1>
             </div>
-
-
+            
+        <div class="container_planta">
             <div class="content-grid">
-
-
                 <div class="card card-diagram">
                     <h2 class="card-title">POSIÇÃO DO SENSORES - PLANTA</h2>
 
 
                     <div class="floorplan-placeholder">
 
-                        <svg viewBox="0 0 560 440" fill="none" style="width:100%"
+                        <svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 560 440" fill="none" style="width:100%"
                             aria-label="Planta da loja com sensores">
                             <rect x="24" y="24" width="512" height="392" rx="10" fill="#FBFDFC" stroke="#0F4C3A"
                                 stroke-opacity=".18" stroke-width="1.5" />
@@ -362,7 +285,204 @@
         </div>
     </div>
 
+    <section class="fundo" id="solucao">
 
+        <!-- Cabeçalho da página -->
+        <div class="ajustes">
+            <div class="cabecalho">
+                <p class="nomePagina">◆ PRODUTO</p>
+                <h1>Clareza de segunda-feira<br>
+                    de manhã, em três painéis.</h1>
+            </div>
+
+            <!-- Caixa branca que contém os dois painéis -->
+            <div class="conteinerPrincipal">
+
+                <!-- Painel da esquerda -->
+                <div class="conteiner-grafico1">
+
+                    <div class="cabecalhoGrafico">
+                        <h2>Fluxo por área</h2>
+
+                        <div class="opcoes-periododedias">
+                            <button>Hoje</button>
+                            <button>7 dias</button>
+                        </div>
+                    </div>
+
+                    <!-- Barras do fluxo por área -->
+                    <div class="linhaGrafico">
+                        <span>Entrada</span>
+                        <div class="barraFundo">
+                            <div class="grafico1verdeclaro"></div>
+                        </div>
+                        <small>3.842</small>
+                    </div>
+
+                    <div class="linhaGrafico">
+                        <span>Corredor 1</span>
+                        <div class="barraFundo">
+                            <div class="grafico2verdeclaro"></div>
+                        </div>
+                        <small>2.910</small>
+                    </div>
+
+                    <div class="linhaGrafico">
+                        <span>Corredor 2</span>
+                        <div class="barraFundo">
+                            <div class="grafico3verdeclaro"></div>
+                        </div>
+                        <small>1.649</small>
+                    </div>
+
+                    <div class="linhaGrafico">
+                        <span>Corredor 3</span>
+                        <div class="barraFundo">
+                            <div class="grafico4verdeclaro"></div>
+                        </div>
+                        <small>1.105</small>
+                    </div>
+
+                    <div class="linhaGrafico">
+                        <span>Hortifruti</span>
+                        <div class="barraFundo">
+                            <div class="grafico5verdeclaro"></div>
+                        </div>
+                        <small>902</small>
+                    </div>
+
+                    <div class="linhaGrafico">
+                        <span>Caixas</span>
+                        <div class="barraFundo">
+                            <div class="grafico1verdeescuro"></div>
+                        </div>
+                        <small>2.628</small>
+                    </div>
+
+                    <!-- Legenda das cores -->
+                    <div class="legenda">
+                        <span><i class="corVerde"></i> Fluxo por área</span>
+                        <span><i class="corMedia"></i> Média</span>
+                        <span><i class="corEscura"></i> Caixa</span>
+                    </div>
+
+                </div>
+
+                <!-- Painel da direita -->
+                <div class="conteiner-grafico2">
+
+                    <div class="cabecalhoGrafico">
+                        <h2>Fluxo das saídas dos caixas</h2>
+                    </div>
+
+                    <!-- Caixa 1: barra verde -->
+                    <div class="cartaoCaixa">
+                        <div class="textoCaixa">
+                            <span>Caixa 1</span>
+                            <small>Última atualização: 12:37</small>
+                        </div>
+
+                        <div class="barraFundo barraCaixa">
+                            <div class="grafico1laranja"></div>
+                        </div>
+
+                        <small class="numeroCaixa">19</small>
+                    </div>
+
+                    <!-- Caixa 2: barra laranja e aviso -->
+                    <div class="cartaoCaixa avisoCaixa">
+                        <div class="textoCaixa">
+                            <span>Caixa 2</span>
+                            <small>Última atualização: 14:57</small>
+                        </div>
+
+                        <div class="barraFundo barraCaixa">
+                            <div class="grafico2laranja"></div>
+                        </div>
+
+                        <small class="numeroCaixa">89</small>
+
+                        <div class="textoCritico">
+                            <p>Crítico ⚠</p>
+                            <div class="recomendacao">
+                                Recomendação: Abra o caixa 3
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Caixa 3: barra sem preenchimento -->
+                    <div class="cartaoCaixa">
+                        <div class="textoCaixa">
+                            <span>Caixa 3</span>
+                            <small>Fechado</small>
+                        </div>
+
+                        <div class="barraFundo barraCaixa">
+                            <div class="grafico3laranja"></div>
+                        </div>
+
+                        <small class="numeroCaixa">0</small>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <section class="calculadora_panel">
+        <div class="calculadora">
+            <span class="medium green center" style="font-size: 20px;"> <img src="img/Rectangle.png" alt="cristal">
+                PRODUTO </span>
+            <h1 class="title"> Quanto o fluxo invisível <br> custa para você? </h1>
+            <h3 class="medium"> Ajuste a sua realidade nos controles, a estimativa atualiza ao vivo. <br> Os valores
+                iniciais seguem as
+                medianas que vemos em <br> supermercados de médio porte. </h3><br><br>
+
+            <div class="input">
+                Porte do mercado <br>
+                <select name="" id="ipt_escala" onchange="calcular()">
+                    <option selected="selected" value="pequeno">Pequeno</option>
+                    <option value="medio">Médio</option>
+                    <option value="grande">Grande</option>
+                </select> <br>
+                <span class="subtitle">Ticket médio de referência: R$ <span id="valor_ticket"></span></span><br><br>
+                <br>
+            </div>
+
+            <div class="input">Quantidade de caixas em estado crítico<br><input type="number" id="ipt_caixas"
+                    placeholder="2" oninput="calcular()"><br>
+                <span class="subtitle">Considera-se em estado crítico o caixa cuja fila tem entre 10 e 15 pessoas</span>
+            </div> <br><br>
+
+        </div>
+
+        <div class="mostra">
+            <span class="semibold">RESULTADO DA SIMULAÇÃO</span><br><br>
+            <span class="medium medium_size" style="color: #0F4C3A;">Impacto financeiro total estimado</span> <br>
+            <span class="semibold green" style="font-size: 64px;">
+                R$ <span id="total">0.00</span>
+            </span>
+
+            <div class="linha"></div><br>
+
+            <span class="semibold">Impacto estimado por caixa crítico<br><br>
+                <span class="lime" style="font-size: 28px;">R$ <span id="total_por_caixa">0.00</span></span>
+            </span><br><br>
+            <div class="aviso">
+                <div class="linha_verde"></div>
+                <span style="font-size: 14px;">
+                    Estimativa de potencial impacto financeiro - não representa <br>
+                    uma perda financeira efetivamente garantida
+                </span>
+            </div> <br><br>
+
+
+            <button class="btn_calculadora" onclick="saiba_mais()">Falar com vendas<img src="img/Right_Arrow.png"
+                    style="margin-left: 15px;" alt="flecha"></button><br><br>
+        </div>
+    </section>
 
     <div class="corpo-principal">
         <div class="container">
@@ -371,7 +491,7 @@
 
             <div class="div-cabecalho">
                 <span class="sub-titulo">◆ SOBRE NÓS</span>
-                <h1 class="h1-stilo">Quem atende o seu chamado</h1>
+                <h1 class="h1-stilo">Quem atende o seu chamado?</h1>
             </div>
 
             <div class="container-time">
@@ -452,6 +572,63 @@
         </div>
     </section>
 
+    <footer class="footer_panel">
+        <div class="footer_row">
+            <div class="footer_tab white"> <span class="logo"><img src="img/Shopping_Cart.png" alt="Carrinho"><b
+                        style="color: white;">Flow</b>market</span><br> Inteligência de fluxo para supermercados.
+                <br> Da entrada, por cada corredor, até o caixa.
+            </div>
+            <div class="footer_tab">
+                <h2>PRODUTO</h2> Como funciona <br> Calculadora <br> Prévia dashboard
+            </div>
+            <div class="footer_tab ">
+                <h2>EMPRESA</h2> flowmarket@flowmarket.com
+            </div>
+        </div>
+        <span class="footer_direitos"> © 2026 FlowMarket Systems, Inc. Todos os direitos reservados. </span>
+    </footer>
 </body>
+<script>
+    function calcular() {
+        let escala = ipt_escala.value;
+        let caixas = Number(ipt_caixas.value);
+        let ticket = 0;
+        let clientes = 0;
+
+        if (caixas <= 0) {
+            caixas = 0
+        }
+
+        if (escala == 'pequeno') {
+            ticket = 57.90
+            clientes = 5
+        } else if (escala == 'medio') {
+            ticket = 69.10
+            clientes = 7
+        } else if (escala == 'grande') {
+            ticket = 80.30
+            clientes = 10
+        }
+
+        valor_ticket.innerHTML = ticket;
+
+        let renda_total = Number(ticket * caixas * clientes).toFixed(2);
+        let perda_caixa = Number(renda_total * 0.1).toFixed(2);
+        let total_caixa = perda_caixa / caixas;
+
+        total.innerHTML = perda_caixa
+
+        if (isNaN(total_caixa) || caixas <= 0) {
+            total_por_caixa.innerHTML = 0.00
+        }
+        else {
+            total_por_caixa.innerHTML = (total_caixa).toFixed(2)
+        }
+    }
+
+    function saiba_mais() {
+        alert("Link para outra página")
+    }
+</script>
 
 </html>
