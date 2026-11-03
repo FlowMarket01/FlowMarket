@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registros de Alertas</title>
+    <link rel="stylesheet" href="../css/style_registros.css">
+    <link rel="stylesheet" href="../css/styleDash.css">
+</head>
+
+<body class="cinza">
+    <header class="cabecaLhoDash branco">
+      <a href="..\index.html">
+        <div onclick="" class="molduraLogo" href="./pages/login.html">
+          <img src="../img/iconCart.png" alt="iconCart" />
+        </div>
+      </a>
+        <div class="cabecalhoButtonBar">
+          <a href="dashboardCaixa.html"  class="cabecalhoButton branco">
+            <img src="..\img\CorredorImg.svg" alt="Corredor">
+          </a>
+          <a href="dashboardCorredor.html" class="cabecalhoButton branco">
+            <img src="..\img\PessoasImg.svg" alt="Corredor">
+          </a>
+          <a href="registros.html" class="ButtonSelecionado cabecalhoButton verdeclaro">
+            <img src="..\img\RelatórioImg.svg" alt="Corredor">
+          </a>
+        </div>
+      <a href="">
+        <img class="perfilImg" src="..\img\Perfil.png" alt="Perfil">
+      </a>
+    </header>
+
+    <section class="config_principalRegistros">
+
+        <div class="magenRegistroAjustada">
+
+            <!-- Título principal -->
+            <h1>Registros de Alertas</h1>
+
+            <!-- Descrição da página -->
+            <h6>Mercado Caramico - registros de alerta de caixas com filas em estado crítico</h6>
+
+            <!-- Seleção da unidade -->
+            <div class="periodoDash">
+                <label>Unidade:</label>
+
+                <select id="selectUnidade" onchange="telas()">
+                    <option value="1">Unidade 1</option>
+                    <option value="2">Unidade 2</option>
+                </select>
+            </div>
+
+            <!-- Painel principal dos registros -->
+            <div class="configConteiners">
+                <div class="conteinerPrincipalRegistros">
+
+                    <!-- Títulos das colunas -->
+                    <div class="cabecalhoConteinerPrincipalRegistro">
+                        <h6 class="colunaCaixa">Caixa</h6>
+                        <h6 class="colunaInicio">Tempo de ocorrência</h6>
+                        <h6 class="colunaData">Data</h6>
+                        <h6 class="colunaStatus">Status</h6>
+                    </div>
+
+                    <!-- Área que contém os registros -->
+                    <div id="tela1" class="configDosconteinersRegistro">
+
+                        <!-- Registro 1 -->
+                        <div class="conteinerDisposto01">
+                            <div class="colunaCaixa">Caixa 5</div>
+                            <div class="colunaInicio">08 min</div>
+                            <div class="colunaData">10/out</div>
+                            <div class="colunaStatus">
+                                <div class="blocosdeStatusRegistro statusModerado"> Moderado</div>
+                            </div>
+                        </div>
+
+                        <!-- Registro 2 -->
+                        <div class="conteinerDisposto01">
+                            <div class="colunaCaixa">Caixa 3</div>
+                            <div class="colunaInicio">15 min</div>
+                            <div class="colunaData">07/out</div>
+                            <div class="colunaStatus">
+                                <div class="blocosdeStatusRegistro statusModerado">Moderado</div>
+                            </div>
+                        </div>
+
+                        <!-- Registro 3 -->
+                        <div class="conteinerDisposto01">
+                            <div class="colunaCaixa">Caixa 1</div>
+                            <div class="colunaInicio">15 min</div>
+                            <div class="colunaData">07/out</div>
+                            <div class="colunaStatus">
+                                <div class="blocosdeStatusRegistro statusModerado">Moderado</div>
+                            </div>
+                        </div>
+
+                        <!-- Registro 4 -->
+                        <div class="conteinerDisposto01">
+                            <div class="colunaCaixa">Caixa 4</div>
+                            <div class="colunaInicio">10 min</div>
+                            <div class="colunaData">04/out</div>
+                            <div class="colunaStatus">
+                                <div class="blocosdeStatusRegistro statusCritico">Cheio</div>
+                            </div>
+                        </div>
+                        </div>
+                        <div id="tela2" class="configDosconteinersRegistro">
+
+                        <!-- Registro 5 -->
+                        <div class="conteinerDisposto01">
+                            <div class="colunaCaixa">Caixa 2</div>
+                            <div class="colunaInicio">09 min</div>
+                            <div class="colunaData">01/out</div>
+                            <div class="colunaStatus">
+                                <div class="blocosdeStatusRegistro statusModerado">Moderado</div>
+                            </div>
+                        </div>
+
+                        <!-- Registro 6 -->
+                        <div class="conteinerDisposto01">
+                            <div class="colunaCaixa">Caixa 7</div>
+                            <div class="colunaInicio">12 min</div>
+                            <div class="colunaData">29/set</div>
+                            <div class="colunaStatus">
+                                <div class="blocosdeStatusRegistro statusModerado">Moderado</div>
+                            </div>
+                        </div>
+
+                        <!-- Registro 7 -->
+                        <div class="conteinerDisposto01">
+                            <div class="colunaCaixa">Caixa 6</div>
+                            <div class="colunaInicio">14 min</div>
+                            <div class="colunaData">28/set</div>
+                            <div class="colunaStatus">
+                                <div class="blocosdeStatusRegistro statusCritico">Cheio</div>
+                            </div>
+                        </div>
+
+                        <!-- Registro 8 -->
+                        <div class="conteinerDisposto01">
+                            <div class="colunaCaixa">Caixa 8</div>
+                            <div class="colunaInicio">11 min</div>
+                            <div class="colunaData">28/set</div>
+                            <div class="colunaStatus">
+                                <div class="blocosdeStatusRegistro statusModerado">Moderado</div>
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+
+<script>
+telas()
+function telas() {
+    let recursos = document.getElementById("selectUnidade").value;
+
+    let tela1 = document.getElementById("tela1");
+    let tela2 = document.getElementById("tela2");
+
+    if (recursos == "1") {
+        tela1.style.display = "flex";
+        tela2.style.display = "none";
+    }
+
+    if (recursos == "2") {
+        tela1.style.display = "none";
+        tela2.style.display = "flex";
+    }
+}
+
+</script>
