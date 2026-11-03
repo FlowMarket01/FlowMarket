@@ -20,7 +20,7 @@
         <div class="form-header">
             <h1 class="title">Criar Conta</h1>
             <p class="form-text">
-                Cadastro com dados da empresa, leva menos de um minuto.
+                Cadastro com dados do usuário, leva menos de um minuto.
             </p>
         </div>
 
@@ -54,45 +54,6 @@
             <p id="msg_conf_senha" class="msg-validacao"></p>
         </div>
 
-        <div class="campo">
-            <label for="ipt_razao">Razão social da empresa</label>
-            <input type="text" id="ipt_razao" class="form-input" placeholder="Ex: Mercado Ltda." required>
-        </div>
-
-        <div class="campo">
-            <label for="ipt_nome_fantasia">Nome fantasia</label>
-            <input type="text" id="ipt_nome_fantasia" class="form-input" placeholder="Ex: Mercado Silva" required>
-        </div>
-
-        <div class="campo">
-            <label for="ipt_cnpj">CNPJ</label>
-            <input type="text" id="ipt_cnpj" class="form-input" placeholder="00.000.000/0000-00" oninput="validarCnpj()"
-                required>
-            <p id="msg_cnpj" class="msg-validacao"></p>
-        </div>
-
-        <div class="campo">
-            <label>Porte da loja:</label>
-
-            <div class="opcoes-porte">
-
-                <label for="porte_grande">
-                    <input type="radio" id="porte_grande" value="grande" name="porte">
-                    Grande Porte
-                </label>
-
-                <label for="porte_medio">
-                    <input type="radio" id="porte_medio" value="medio" name="porte">
-                    Médio Porte
-                </label>
-
-                <label for="porte_pequeno">
-                    <input type="radio" id="porte_pequeno" value="pequeno" name="porte">
-                    Pequeno Porte
-                </label>
-
-            </div>
-        </div>
 
         <div class="campo">
             <label for="ipt_telefone">Telefone:</label>
@@ -194,29 +155,6 @@
             }
         }
     
-        function validarCnpj() {
-            let cnpj = ipt_cnpj.value;
-            cnpj = cnpj.replace(/\D/g, '');
-            cnpj = cnpj.substring(0, 14);
-    
-            let parte1 = cnpj.substring(0, 2);
-            let parte2 = cnpj.substring(2, 5)
-            let parte3 = cnpj.substring(5, 8);
-            let parte4 = cnpj.substring(8, 12);
-            let parte5 = cnpj.substring(12, 14);
-    
-            if (cnpj.length <= 2) {
-                ipt_cnpj.value = cnpj;
-            } else if (cnpj.length <= 5) {
-                ipt_cnpj.value = parte1 + '.' + parte2;
-            } else if (cnpj.length <= 8) {
-                ipt_cnpj.value = parte1 + '.' + parte2 + '.' + parte3;
-            } else if (cnpj.length <= 12) {
-                ipt_cnpj.value = parte1 + '.' + parte2 + '.' + parte3 + '/' + parte4;
-            } else if (cnpj.length <= 14) {
-                ipt_cnpj.value = parte1 + '.' + parte2 + '.' + parte3 + '/' + parte4 + '-' + parte5;
-            }
-        }
     
         function validarTelefone() {
             let telefone = ipt_telefone.value;
@@ -245,36 +183,18 @@
                 msg_email.className == 'msg-validacao' ||
                 msg_senha.className == 'msg-validacao' ||
                 msg_conf_senha.className == 'msg-validacao' ||
-                ipt_razao.value.trim() == '' ||
-                ipt_nome_fantasia.value.trim() == '' ||
-                ipt_cnpj.value.replace(/\D/g, '').length != 14 ||
-                ipt_telefone.value.replace(/\D/g, '').length != 11 ||
-                (!porte_pequeno.checked &&
-                !porte_medio.checked &&
-                !porte_grande.checked)
+                ipt_telefone.value.replace(/\D/g, '').length != 11
             ) {
                 cadastro_valido = false;
             }
 
             if (cadastro_valido) {
-                let porte_loja = '';
 
-                if (porte_grande.checked) {
-                    porte_loja = porte_grande.value  
-                } else if (porte_medio.checked) {
-                    porte_loja = porte_medio.value
-                } else {
-                    porte_loja = porte_pequeno.value
-                }
 
                 let dados_cadastro = {
                     nome: ipt_nome.value,
                     email: ipt_email.value,
-                    razao_social: ipt_razao.value,
-                    nome_fantasia: ipt_nome_fantasia.value,
-                    cnpj: ipt_cnpj.value,
                     telefone: ipt_telefone.value,
-                    porte_loja: porte_loja
                 }
 
                 localStorage.setItem('dados_cadastro', JSON.stringify(dados_cadastro))
