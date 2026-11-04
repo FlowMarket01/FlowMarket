@@ -1,11 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - Mercado</title>
+    <link rel="stylesheet" href="../css/style-cadastro.css">
 </head>
+
 <body>
-    
+    <div class="header">
+        <img class="icone-carrinho" src="../img/carrinho.png" alt="Ícone de carrinho de compras">
+        <h1 class="title">Flow<span style="color: #6AAE48">market</span></h1>
+    </div>
+
+    <form action="/cadastrar-mercado" onsubmit="cadastrarMercado(event)" class="cad-container">
+
+        <div class="campo">
+            <label for="ipt_cnpj">CNPJ</label>
+            <input type="text" id="ipt_cnpj" class="form-input" placeholder="00.000.000/0000-00" oninput="validarCnpj()"
+                required>
+            <p id="msg_cnpj" class="msg-validacao"></p>
+        </div>
+
+        <div class="campo">
+            <label for="ipt_razao">Razão social</label>
+            <input type="text" id="ipt_razao" class="form-input" placeholder="Ex: Mercado Ltda." required>
+        </div>
+
+        <div class="campo">
+            <label for="ipt_nome_fantasia">Nome fantasia</label>
+            <input type="text" id="ipt_nome_fantasia" class="form-input" placeholder="Ex: Mercado Silva" required>
+        </div>
+
+
+        <div class="campo">
+            <label>Porte da loja:</label>
+
+            <div class="opcoes-porte">
+
+                <label for="porte_grande">
+                    <input type="radio" id="porte_grande" value="grande" name="porte">
+                    Grande Porte
+                </label>
+
+                <label for="porte_medio">
+                    <input type="radio" id="porte_medio" value="medio" name="porte">
+                    Médio Porte
+                </label>
+
+                <label for="porte_pequeno">
+                    <input type="radio" id="porte_pequeno" value="pequeno" name="porte">
+                    Pequeno Porte
+                </label>
+
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="button-cadastro">
+                Cadastrar
+            </button>
+        </div>
+    </form>
 </body>
+
 </html>
+<script>
+    function validarCnpj() {
+        let cnpj = ipt_cnpj.value;
+        cnpj = cnpj.replace(/\D/g, '');
+        cnpj = cnpj.substring(0, 14);
+
+        let parte1 = cnpj.substring(0, 2);
+        let parte2 = cnpj.substring(2, 5)
+        let parte3 = cnpj.substring(5, 8);
+        let parte4 = cnpj.substring(8, 12);
+        let parte5 = cnpj.substring(12, 14);
+
+        if (cnpj.length <= 2) {
+            ipt_cnpj.value = cnpj;
+        } else if (cnpj.length <= 5) {
+            ipt_cnpj.value = parte1 + '.' + parte2;
+        } else if (cnpj.length <= 8) {
+            ipt_cnpj.value = parte1 + '.' + parte2 + '.' + parte3;
+        } else if (cnpj.length <= 12) {
+            ipt_cnpj.value = parte1 + '.' + parte2 + '.' + parte3 + '/' + parte4;
+        } else if (cnpj.length <= 14) {
+            ipt_cnpj.value = parte1 + '.' + parte2 + '.' + parte3 + '/' + parte4 + '-' + parte5;
+        }
+    }
+
+    function cadastrarMercado(event) {
+        event.preventDefault()
+
+        let cadastro_valido = true;
+
+        if (ipt_razao.value.trim() == '' ||
+            ipt_nome_fantasia.value.trim() == '' ||
+            ipt_cnpj.value.replace(/\D/g, '').length != 14 ||
+            (!porte_pequeno.checked &&
+                !porte_medio.checked &&
+                !porte_grande.checked)
+        ) {
+            cadastro_valido = false;
+        }
+
+        if (cadastro_valido) {
+            let porte_loja = '';
+
+            if (porte_grande.checked) {
+                porte_loja = porte_grande.value
+            } else if (porte_medio.checked) {
+                porte_loja = porte_medio.value
+            } else {
+                porte_loja = porte_pequeno.value
+            }
+
+            let dados_cadastro = {
+                razao_social: ipt_razao.value,
+                nome_fantasia: ipt_nome_fantasia.value,
+                cnpj: ipt_cnpj.value,
+                porte_loja: porte_loja
+            }
+            localStorage.setItem('dados_cadastro', JSON.stringify(dados_cadastro))
+            console.log(localStorage.getItem('dados_cadastro'))
+
+            alert('Cadastro validado!')
+
+            window.location.href = 'login.html';
+        } else {
+            alert('Cadastro Incompleto!')
+        }
+    }
+</script>
