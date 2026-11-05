@@ -117,13 +117,13 @@
                 porte_loja = porte_pequeno.value
             }
 
-            let dados_cadastro = {
+            let dados_cadastro_mercado = {
                 razao_social: ipt_razao.value,
                 nome_fantasia: ipt_nome_fantasia.value,
                 cnpj: ipt_cnpj.value,
                 porte_loja: porte_loja
             }
-            localStorage.setItem('dados_cadastro', JSON.stringify(dados_cadastro))
+            localStorage.setItem('dados_cadastro_mercado', JSON.stringify(dados_cadastro_mercado))
             console.log(localStorage.getItem('dados_cadastro'))
 
             alert('Cadastro validado!')
