@@ -69,6 +69,7 @@
             <label for="ipt_telefone">Telefone:</label>
             <input type="tel" id="ipt_telefone" class="form-input" placeholder="(11) 99999-9999"
                 oninput="validarTelefone()">
+            <p id="msg_telefone" class="msg-validacao">o telefone é valido</p>
         </div>
 
         <div>
@@ -217,17 +218,23 @@
             let telefone = ipt_telefone.value;
             telefone = telefone.replace(/\D/g, '');
             telefone = telefone.substring(0, 11);
-    
+
             let parte1 = telefone.substring(0, 2);
             let parte2 = telefone.substring(2, 7);
             let parte3 = telefone.substring(7, 11);
-    
+
             if (telefone.length <= 2) {
-                ipt_telefone.value = telefone
+                ipt_telefone.value = telefone;
             } else if (telefone.length <= 7) {
-                ipt_telefone.value = '(' + parte1 + ')' + ' ' + parte2
-            } else if (telefone.length <= 11) {
-                ipt_telefone.value = '(' + parte1 + ')' + ' ' + parte2 + '-' + parte3
+                ipt_telefone.value = '(' + parte1 + ') ' + parte2;
+            } else {
+                ipt_telefone.value = '(' + parte1 + ') ' + parte2 + '-' + parte3;
+            }
+
+            if (telefone.length === 11) {
+                msg_telefone.style.color = 'green';
+            } else {
+                msg_telefone.style.color = 'red';
             }
         }
     
