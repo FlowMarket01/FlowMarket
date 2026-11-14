@@ -28,12 +28,12 @@
             <label for="ipt_nome">Nome</label>
             <input type="text" id="ipt_nome" class="form-input" placeholder="Ex: João" oninput="validarNome()"
                 required>
-            <p class="msg-validacao" id="msg_nome_completo">O nome deve conter no mínimo duas letras</p>
+            <p class="msg-validacao" id="msg_nome">O nome deve conter no mínimo quatro letras</p>
         </div>
         <div class="campo">
-            <label for="ipt_sobre">Sobrenome</label>
-            <input type="text" id="ipt_sobre" class="form-input" placeholder="Ex: da Silva" oninput="validarSobrenome()" required>
-            <p class="msg-validacao" id="msg_sobre">O sobrenome deve conter no mínimo duas letras</p>
+            <label for="ipt_sobrenome">Sobrenome</label>
+            <input type="text" id="ipt_sobrenome" class="form-input" placeholder="Ex: da Silva" oninput="validarSobrenome()" required>
+            <p class="msg-validacao" id="msg_sobrenome">O sobrenome deve conter no mínimo quatro letras</p>
         </div>
 
         <div class="campo">
@@ -89,21 +89,23 @@
 
     <script>
         function validarNome() {
-            let partes_nome = ipt_nome.value.trim().split(' ');
+            let Nome = ipt_nome.value.trim();
             
-            if (ipt_nome.value.trim() == '') {
-                msg_nome.innerHTML = ''
+            if(Nome.length >= 4){
+                msg_nome.style.color = 'green';
             } else {
-            if (partes_nome.length < 2) {
-                    msg_nome.innerHTML = `Digite seu nome e sobrenome`;
-                    msg_nome.className = 'msg-validacao';
-            } else {
-                    msg_nome.innerHTML = `Nome válido!`;
-                    msg_nome.className = 'msg-valida';
-                }
+                msg_nome.style.color = 'red';
             }
         }
-    
+        function validarSobrenome() {
+            let Sobrenome = ipt_sobrenome.value.trim();
+            
+            if(Sobrenome.length >= 4){
+                msg_sobrenome.style.color = 'green';
+            } else {
+                msg_sobrenome.style.color = 'red';
+            }
+        }
         function validarEmail() {
             let email = ipt_email.value;
             if (ipt_email.value == '') {
@@ -141,6 +143,7 @@
             for (let i = 0; i < senha.length; i++) {
                 if (caracteres_especiais.test(senha[i])) {
                     count_especiais++;
+
                 }
             }
             if (count_especiais >= 2) {
@@ -153,6 +156,7 @@
             for (let i = 0; i < senha.length; i++) {
                 if (numeros.test(senha[i])) {
                     count_numeros++;
+
                 }
             }
             if (count_numeros >= 2) {
