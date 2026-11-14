@@ -26,19 +26,20 @@
 
         <div class="campo">
             <label for="ipt_nome">Nome</label>
-            <input type="text" id="ipt_nome" class="form-input" placeholder="Ex: João" oninput="validarNome()"
-                required>
+            <input type="text" id="ipt_nome" class="form-input" placeholder="Ex: João" oninput="validarNome()" required>
             <p class="msg-validacao" id="msg_nome">O nome deve conter no mínimo quatro letras</p>
         </div>
         <div class="campo">
             <label for="ipt_sobrenome">Sobrenome</label>
-            <input type="text" id="ipt_sobrenome" class="form-input" placeholder="Ex: da Silva" oninput="validarSobrenome()" required>
+            <input type="text" id="ipt_sobrenome" class="form-input" placeholder="Ex: da Silva"
+                oninput="validarSobrenome()" required>
             <p class="msg-validacao" id="msg_sobrenome">O sobrenome deve conter no mínimo quatro letras</p>
         </div>
 
         <div class="campo">
             <label for="ipt_email">E-mail Corporativo</label>
-            <input type="email" id="ipt_email" class="form-input" placeholder="Ex: nome@empresa.com.br" oninput="validarEmail()" required>
+            <input type="email" id="ipt_email" class="form-input" placeholder="Ex: nome@empresa.com.br"
+                oninput="validarEmail()" required>
             <p id="msg_email" class="msg-validacao">seu e-mail corporativo deve conter o @</p>
             <p id="msg_email_dominio" class="msg-validacao">seu e-mail corporativo deve conter o domínio válido</p>
 
@@ -46,15 +47,16 @@
 
         <div class="campo">
             <label for="ipt_senha">Senha</label>
-            <div class="campo-senha"><input type="password" id="ipt_senha" class="form-input" placeholder="Mínimo de 8 caracteres"
-                oninput="validarSenha(); confirmarSenha()" required>
-            <button type="button" id="visualizar_senha" onclick="visualizarSenha()">👁</button>
-        </div>
+            <div class="campo-senha"><input type="password" id="ipt_senha" class="form-input"
+                    placeholder="Mínimo de 8 caracteres" oninput="validarSenha(); confirmarSenha()" required>
+                <button type="button" id="visualizar_senha" onclick="visualizarSenha()">👁</button>
+            </div>
             <p id="senha_8carcteres" class="msg-validacao">A senha precisa ter no mínimo 8 caracteres</p>
             <p id="senha_especial" class="msg-validacao">A senha deve conter no mínimo 2 caracteres especiais</p>
             <p id="senha_numero" class="msg-validacao">A senha deve conter no mínimo 2 números</p>
-            <p id="letramaiuscula_minuscula" class="msg-validacao">A senha deve conter no mínimo duas letras maiúsculas e minúsculas</p>
-            
+            <p id="letramaiuscula_minuscula" class="msg-validacao">A senha deve conter no mínimo duas letras maiúsculas
+                e minúsculas</p>
+
         </div>
 
         <div class="campo">
@@ -93,29 +95,35 @@
     <script>
         function validarNome() {
             let Nome = ipt_nome.value.trim();
-            
-            if(Nome.length >= 4){
+
+            if (Nome.length >= 4) {
                 msg_nome.style.color = 'green';
+                msg_nome.className = 'msg-valida';
             } else {
                 msg_nome.style.color = 'red';
+                msg_nome.className = 'msg-validacao';
             }
         }
         function validarSobrenome() {
             let Sobrenome = ipt_sobrenome.value.trim();
-            
-            if(Sobrenome.length >= 4){
+
+            if (Sobrenome.length >= 4) {
                 msg_sobrenome.style.color = 'green';
+                msg_sobrenome.className = 'msg-valida';
             } else {
                 msg_sobrenome.style.color = 'red';
+                msg_sobrenome.className = 'msg-validacao';
             }
         }
         function validarEmail() {
             let email = ipt_email.value;
             if (!email.includes("@")) {
                 msg_email.style.color = "red";
+                msg_email.className = 'msg-validacao';
 
-            }else {
+            } else {
                 msg_email.style.color = "green";
+                msg_email.className = 'msg-valida';
             }
 
             if (
@@ -124,8 +132,10 @@
                 !email.includes("outlook.com")
             ) {
                 msg_email_dominio.style.color = "red";
+                msg_email_dominio.className = 'msg-validacao';
             } else {
                 msg_email_dominio.style.color = "green";
+                msg_email_dominio.className = 'msg-valida';
             }
         }
         function validarSenha() {
@@ -135,10 +145,12 @@
             let letras_minusculas = /[a-z]/;
             let numeros = /[0-9]/;
 
-            if(senha.length >=8){
+            if (senha.length >= 8) {
                 senha_8carcteres.style.color = 'green';
-            }else {
+                senha_8carcteres.className = 'msg-valida'
+            } else {
                 senha_8carcteres.style.color = 'red';
+                senha_8carcteres.className = 'msg-validacao'
             }
 
             // usando a estrutura de repetição para contar quantos caracteres especiais existem na senha
@@ -151,8 +163,10 @@
             }
             if (count_especiais >= 2) {
                 senha_especial.style.color = 'green';
+                senha_8carcteres.className = 'msg-valida'
             } else {
                 senha_especial.style.color = 'red';
+                senha_8carcteres.className = 'msg-validacao'
             }
             //-----------------------------------------------------
             let count_numeros = 0;
@@ -164,8 +178,10 @@
             }
             if (count_numeros >= 2) {
                 senha_numero.style.color = 'green';
+                senha_8carcteres.className = 'msg-valida'
             } else {
                 senha_numero.style.color = 'red';
+                senha_8carcteres.className = 'msg-validacao'
             }
             //---------------------------------------------------
             let count_letras_minusculas = 0;
@@ -180,26 +196,28 @@
             }
             if (count_letras_minusculas >= 2 && count_letras_maiusculas >= 2) {
                 letramaiuscula_minuscula.style.color = 'green';
+                senha_8carcteres.className = 'msg-valida'
             } else {
                 letramaiuscula_minuscula.style.color = 'red';
+                senha_8carcteres.className = 'msg-validacao'
             }
         }
-        
+
         //acima a validação de senha 
         function visualizarSenha() {
             let tipo_senha = ipt_senha.type;
-            
+
             if (tipo_senha == 'password') {
                 ipt_senha.type = 'text'
             } else {
                 ipt_senha.type = 'password'
             }
         }
-    
+
         function confirmarSenha() {
             let senha = ipt_senha.value;
             let conf_senha = ipt_conf_senha.value;
-    
+
             if (conf_senha == '') {
                 msg_conf_senha.innerHTML = '';
             } else {
@@ -212,8 +230,8 @@
                 }
             }
         }
-    
-    
+
+
         function validarTelefone() {
             let telefone = ipt_telefone.value;
             telefone = telefone.replace(/\D/g, '');
@@ -233,41 +251,79 @@
 
             if (telefone.length === 11) {
                 msg_telefone.style.color = 'green';
+                msg_telefone.className = `msg-valida`;
             } else {
                 msg_telefone.style.color = 'red';
+                msg_telefone.className = `msg-validacao`;
             }
         }
-    
+
         function cadastrarUsuario(event) {
             event.preventDefault()
 
             let cadastro_valido = true;
 
             if (msg_nome.className == 'msg-validacao' ||
+                msg_sobrenome.className == 'msg-validacao' ||
                 msg_email.className == 'msg-validacao' ||
-                msg_senha.className == 'msg-validacao' ||
+                senha_8carcteres.className == 'msg-validacao' ||
                 msg_conf_senha.className == 'msg-validacao' ||
-                ipt_telefone.value.replace(/\D/g, '').length != 11
+                msg_telefone.className == 'msg-validacao' ||
+                msg_email_dominio == 'msg-validacao'
             ) {
                 cadastro_valido = false;
             }
 
             if (cadastro_valido) {
-
+                let telefone = ipt_telefone.value;
+                telefone = telefone.replace(/\D/g, '');
+                telefone = telefone.substring(0, 11);
 
                 let dados_cadastro = {
                     nome: ipt_nome.value,
+                    sobrenome: ipt_sobrenome.value,
                     email: ipt_email.value,
                     senha: ipt_senha.value,
-                    telefone: ipt_telefone.value,
+                    telefone: telefone,
                 }
 
-                localStorage.setItem('dados_cadastro', JSON.stringify(dados_cadastro))
-                console.log(localStorage.getItem('dados_cadastro'))
+                console.log(dados_cadastro)
+                //localStorage.setItem('dados_cadastro', JSON.stringify(dados_cadastro))
+                //console.log(localStorage.getItem('dados_cadastro'))
 
-                alert('Cadastro validado!')
+                fetch("/usuarios/cadastrar", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        // crie um atributo que recebe o valor recuperado aqui
+                        // Agora vá para o arquivo routes/usuario.js
+                        nomeServer: dados_cadastro.nome,
+                        sobrenomeServer: dados_cadastro.sobrenome,
+                        emailServer: dados_cadastro.email,
+                        senhaServer: dados_cadastro.senha,
+                        telefoneServer: dados_cadastro.telefone
+                    }),
+                })
+                    .then(function (resposta) {
+                        console.log("resposta: ", resposta);
 
-                window.location.href = 'cadastro-mercado.html';
+                        if (resposta.ok) {
+                            alert("Cadastro realizado com sucesso! Redirecionando para cadastro da sua empresa...");
+
+                            setTimeout(() => {
+                                window.location.href = 'cadastro-mercado.html';
+                            }, "2000");
+
+                        } else {
+                            throw "Houve um erro ao tentar realizar o cadastro!";
+                        }
+                    })
+                    .catch(function (resposta) {
+                        console.log(`#ERRO: ${resposta}`);
+                    });
+                
             } else {
                 alert('Cadastro Incompleto!')
             }
