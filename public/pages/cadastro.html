@@ -25,10 +25,15 @@
         </div>
 
         <div class="campo">
-            <label for="ipt_nome">Nome Completo</label>
-            <input type="text" id="ipt_nome" class="form-input" placeholder="Ex: João da Silva" oninput="validarNome()"
+            <label for="ipt_nome">Nome</label>
+            <input type="text" id="ipt_nome" class="form-input" placeholder="Ex: João" oninput="validarNome()"
                 required>
-            <p id="msg_nome" class="msg-validacao"></p>
+            <p class="msg-validacao" id="msg_nome_completo">O nome deve conter no mínimo duas letras</p>
+        </div>
+        <div class="campo">
+            <label for="ipt_sobre">Sobrenome</label>
+            <input type="text" id="ipt_sobre" class="form-input" placeholder="Ex: da Silva" oninput="validarSobrenome()" required>
+            <p class="msg-validacao" id="msg_sobre">O sobrenome deve conter no mínimo duas letras</p>
         </div>
 
         <div class="campo">
@@ -42,9 +47,12 @@
             <div class="campo-senha"><input type="password" id="ipt_senha" class="form-input" placeholder="Mínimo de 8 caracteres"
                 oninput="validarSenha(); confirmarSenha()" required>
             <button type="button" id="visualizar_senha" onclick="visualizarSenha()">👁</button>
-            </div>
+        </div>
+            <p id="senha_8carcteres" class="msg-validacao">A senha precisa ter no mínimo 8 caracteres</p>
+            <p id="senha_especial" class="msg-validacao">A senha deve conter no mínimo 2 caracteres especiais</p>
+            <p id="senha_numero" class="msg-validacao">A senha deve conter no mínimo 2 números</p>
+            <p id="letramaiuscula_minuscula" class="msg-validacao">A senha deve conter no mínimo duas letras maiúsculas e minúsculas</p>
             
-            <p id="msg_senha" class="msg-validacao"></p>
         </div>
 
         <div class="campo">
@@ -82,14 +90,14 @@
     <script>
         function validarNome() {
             let partes_nome = ipt_nome.value.trim().split(' ');
-    
+            
             if (ipt_nome.value.trim() == '') {
                 msg_nome.innerHTML = ''
             } else {
-                if (partes_nome.length < 2) {
+            if (partes_nome.length < 2) {
                     msg_nome.innerHTML = `Digite seu nome e sobrenome`;
                     msg_nome.className = 'msg-validacao';
-                } else {
+            } else {
                     msg_nome.innerHTML = `Nome válido!`;
                     msg_nome.className = 'msg-valida';
                 }
@@ -102,8 +110,8 @@
                 msg_email.innerHTML = '';
             } else {
                 if (email.includes('@') && 
-                    email.indexOf('@') == email.lastIndexOf('@') &&
-                    email.lastIndexOf('@') != email.length - 1 &&
+                email.indexOf('@') == email.lastIndexOf('@') &&
+                email.lastIndexOf('@') != email.length - 1 &&
                     !email.startsWith('@')
                 ) {
                     msg_email.innerHTML = `Email válido!`;
@@ -115,22 +123,65 @@
                 }
             }
         }
-    
         function validarSenha() {
             let senha = ipt_senha.value;
-    
-            if (senha.length >= 8 && /[A-Z]/.test(senha) && /[^A-Za-z0-9]/.test(senha)) {
-                msg_senha.innerHTML = `Senha válida!`;
-                msg_senha.className = "msg-valida";
+            let caracteres_especiais = /[^A-Za-z0-9]/;
+            let letras_maiusculas = /[A-Z]/;
+            let letras_minusculas = /[a-z]/;
+            let numeros = /[0-9]/;
+
+            if(senha.length >=8){
+                senha_8carcteres.style.color = 'green';
+            }else {
+                senha_8carcteres.style.color = 'red';
+            }
+
+            // usando a estrutura de repetição para contar quantos caracteres especiais existem na senha
+            let count_especiais = 0;
+            for (let i = 0; i < senha.length; i++) {
+                if (caracteres_especiais.test(senha[i])) {
+                    count_especiais++;
+                }
+            }
+            if (count_especiais >= 2) {
+                senha_especial.style.color = 'green';
             } else {
-                msg_senha.innerHTML = `A senha deve conter no mínimo 8 caracteres, uma letra maiúscula e um caractere especial.`;
-                msg_senha.className = 'msg-validacao';
+                senha_especial.style.color = 'red';
+            }
+            //-----------------------------------------------------
+            let count_numeros = 0;
+            for (let i = 0; i < senha.length; i++) {
+                if (numeros.test(senha[i])) {
+                    count_numeros++;
+                }
+            }
+            if (count_numeros >= 2) {
+                senha_numero.style.color = 'green';
+            } else {
+                senha_numero.style.color = 'red';
+            }
+            //---------------------------------------------------
+            let count_letras_minusculas = 0;
+            let count_letras_maiusculas = 0;
+            for (let i = 0; i < senha.length; i++) {
+                if (letras_maiusculas.test(senha[i])) {
+                    count_letras_maiusculas++;
+                }
+                if (letras_minusculas.test(senha[i])) {
+                    count_letras_minusculas++;
+                }
+            }
+            if (count_letras_minusculas >= 2 && count_letras_maiusculas >= 2) {
+                letramaiuscula_minuscula.style.color = 'green';
+            } else {
+                letramaiuscula_minuscula.style.color = 'red';
             }
         }
-
+        
+        //acima a validação de senha 
         function visualizarSenha() {
             let tipo_senha = ipt_senha.type;
-
+            
             if (tipo_senha == 'password') {
                 ipt_senha.type = 'text'
             } else {
