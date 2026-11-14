@@ -39,7 +39,9 @@
         <div class="campo">
             <label for="ipt_email">E-mail Corporativo</label>
             <input type="email" id="ipt_email" class="form-input" placeholder="Ex: nome@empresa.com.br" oninput="validarEmail()" required>
-            <p id="msg_email" class="msg-validacao"></p>
+            <p id="msg_email" class="msg-validacao">seu e-mail corporativo deve conter o @</p>
+            <p id="msg_email_dominio" class="msg-validacao">seu e-mail corporativo deve conter o domínio válido</p>
+
         </div>
 
         <div class="campo">
@@ -59,7 +61,7 @@
             <label for="ipt_conf_senha">Confirmar senha</label>
             <input type="password" id="ipt_conf_senha" class="form-input" placeholder="Repita sua senha"
                 oninput="confirmarSenha()" required>
-            <p id="msg_conf_senha" class="msg-validacao"></p>
+            <p id="msg_conf_senha" class="msg-validacao">As senhas não coincidem</p>
         </div>
 
 
@@ -108,21 +110,21 @@
         }
         function validarEmail() {
             let email = ipt_email.value;
-            if (ipt_email.value == '') {
-                msg_email.innerHTML = '';
+            if (!email.includes("@")) {
+                msg_email.style.color = "red";
+
+            }else {
+                msg_email.style.color = "green";
+            }
+
+            if (
+                !email.includes("gmail.com") &&
+                !email.includes("hotmail.com") &&
+                !email.includes("outlook.com")
+            ) {
+                msg_email_dominio.style.color = "red";
             } else {
-                if (email.includes('@') && 
-                email.indexOf('@') == email.lastIndexOf('@') &&
-                email.lastIndexOf('@') != email.length - 1 &&
-                    !email.startsWith('@')
-                ) {
-                    msg_email.innerHTML = `Email válido!`;
-                    msg_email.className = 'msg-valida';
-                } else {
-                    msg_email.innerHTML = `O email deve possuir '@'`;
-                    msg_email.className = 'msg-validacao'
-                    
-                }
+                msg_email_dominio.style.color = "green";
             }
         }
         function validarSenha() {
