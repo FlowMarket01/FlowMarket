@@ -58,6 +58,7 @@
         </div>
 
         <div>
+            <p id="mensagem_erro" class="mensagemErro" role="alert" aria-live="polite" hidden> </p>
             <button type="submit" class="button-cadastro">
                 Cadastrar
             </button>
@@ -107,8 +108,11 @@
         }
 
         if (cadastro_valido) {
-            let porte_loja = '';
+            let mensagem = document.getElementById('mensagem_erro');
             let cnpj = ipt_cnpj.value;
+            let porte_loja = '';
+            
+
             cnpj = cnpj.replace(/\D/g, '');
             cnpj = cnpj.replace(/\./g,'');
             console.log(cnpj)
@@ -154,6 +158,8 @@
 
 
                     } else {
+                        mensagem.textContent = 'CNPJ já cadastrado';
+                        mensagem.hidden = false;
                         throw "Houve um erro ao tentar realizar o cadastro!";
                     }
                 })

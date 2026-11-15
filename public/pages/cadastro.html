@@ -81,9 +81,10 @@
         </div>
 
         <div>
+            <p id="mensagem_erro" class="mensagemErro" role="alert" aria-live="polite" hidden> </p>
             <p class="form-text">
                 Ao criar a conta, você concorda com os Termos de Uso e com o tratamento de dados previsto na LGPD.
-            </p>
+            </p>   
         </div>
 
     </form>
@@ -252,9 +253,11 @@
             if (telefone.length === 11) {
                 msg_telefone.style.color = 'green';
                 msg_telefone.className = `msg-valida`;
+                msg_telefone.innerHTML = 'o telefone é válido';
             } else {
                 msg_telefone.style.color = 'red';
                 msg_telefone.className = `msg-validacao`;
+                msg_telefone.innerHTML = 'o telefone é inválido';
             }
         }
 
@@ -262,6 +265,7 @@
             event.preventDefault()
 
             let cadastro_valido = true;
+            let mensagem = document.getElementById('mensagem_erro');
 
             if (msg_nome.className == 'msg-validacao' ||
                 msg_sobrenome.className == 'msg-validacao' ||
@@ -307,16 +311,16 @@
                     }),
                 })
                     .then(function (resposta) {
-                        console.log("resposta: ", resposta);
-
                         if (resposta.ok) {
                             alert("Cadastro realizado com sucesso! Redirecionando para cadastro da sua empresa...");
                             sessionStorage.EMAIL_USUARIO = dados_cadastro.email;
                             sessionStorage.SENHA_USUARIO = dados_cadastro.senha;
-                            
                             window.location.href = 'cadastro-mercado.html';
 
                         } else {
+                            mensagem.textContent = 'Email já cadastrado';
+                            mensagem.hidden = false;
+                            console.log('ERRO!')
                             throw "Houve um erro ao tentar realizar o cadastro!";
                         }
                     })
