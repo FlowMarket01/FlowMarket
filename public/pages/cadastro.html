@@ -311,10 +311,10 @@
 
                         if (resposta.ok) {
                             alert("Cadastro realizado com sucesso! Redirecionando para cadastro da sua empresa...");
-
-                            setTimeout(() => {
-                                window.location.href = 'cadastro-mercado.html';
-                            }, "2000");
+                            sessionStorage.EMAIL_USUARIO = dados_cadastro.email;
+                            sessionStorage.SENHA_USUARIO = dados_cadastro.senha;
+                            
+                            window.location.href = 'cadastro-mercado.html';
 
                         } else {
                             throw "Houve um erro ao tentar realizar o cadastro!";

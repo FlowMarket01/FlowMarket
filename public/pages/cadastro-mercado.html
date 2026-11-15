@@ -108,6 +108,10 @@
 
         if (cadastro_valido) {
             let porte_loja = '';
+            let cnpj = ipt_cnpj.value;
+            cnpj = cnpj.replace(/\D/g, '');
+            cnpj = cnpj.replace(/\./g,'');
+            console.log(cnpj)
 
             if (porte_grande.checked) {
                 porte_loja = porte_grande.value
@@ -120,15 +124,42 @@
             let dados_cadastro_mercado = {
                 razao_social: ipt_razao.value,
                 nome_fantasia: ipt_nome_fantasia.value,
-                cnpj: ipt_cnpj.value,
+                cnpj: cnpj,
                 porte_loja: porte_loja
             }
-            localStorage.setItem('dados_cadastro_mercado', JSON.stringify(dados_cadastro_mercado))
-            console.log(localStorage.getItem('dados_cadastro'))
+            //localStorage.setItem('dados_cadastro_mercado', JSON.stringify(dados_cadastro_mercado))
+            //console.log(localStorage.getItem('dados_cadastro'))
 
-            alert('Cadastro validado!')
+            fetch("/usuarios/cadastrar_mercado", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    cnpjServer: dados_cadastro_mercado.cnpj,
+                    nomeServer: dados_cadastro_mercado.nome_fantasia,
+                    razaoServer: dados_cadastro_mercado.razao_social,
+                    emailServer: sessionStorage.EMAIL_USUARIO,
+                    senhaServer: sessionStorage.SENHA_USUARIO
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
 
-            window.location.href = 'login.html';
+                    if (resposta.ok) {
+                        alert("Cadastro realizado com sucesso!");
+                        window.location.href = 'dashboardCaixa.html';
+
+
+                    } else {
+                        throw "Houve um erro ao tentar realizar o cadastro!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
         } else {
             alert('Cadastro Incompleto!')
         }
