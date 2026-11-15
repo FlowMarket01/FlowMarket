@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -8,29 +7,32 @@
     <title>Registros de Alertas</title>
     <link rel="stylesheet" href="../css/style_registros.css">
     <link rel="stylesheet" href="../css/styleDash.css">
+    <script src="/js/sessao.js"></script>
 </head>
 
 <body class="cinza">
     <header class="cabecaLhoDash branco">
-      <a href="..\index.html">
-        <div onclick="" class="molduraLogo" href="./pages/login.html">
-          <img src="../img/iconCart.png" alt="iconCart" />
-        </div>
-      </a>
+        <a href="..\index.html">
+            <div onclick="" class="molduraLogo" href="./pages/login.html">
+                <img src="../img/iconCart.png" alt="iconCart" />
+            </div>
+        </a>
         <div class="cabecalhoButtonBar">
-          <a href="dashboardCaixa.html"  class="cabecalhoButton branco">
-            <img src="..\img\CorredorImg.svg" alt="Corredor">
-          </a>
-          <a href="dashboardCorredor.html" class="cabecalhoButton branco">
-            <img src="..\img\PessoasImg.svg" alt="Corredor">
-          </a>
-          <a href="registros.html" class="ButtonSelecionado cabecalhoButton verdeclaro">
-            <img src="..\img\RelatórioImg.svg" alt="Corredor">
-          </a>
+            <a href="dashboardCaixa.html" class="cabecalhoButton branco">
+                <img src="..\img\PessoasImg.svg" alt="Corredor">
+            </a>
+            <a href="dashboardCorredor.html" class="cabecalhoButton branco">
+                <img src="..\img\CorredorImg.svg" alt="Corredor">
+            </a>
+            <a href="registros.html" class="ButtonSelecionado cabecalhoButton verdeclaro">
+                <img src="..\img\RelatórioImg.svg" alt="Corredor">
+            </a>
         </div>
-      <a href="">
-        <img class="perfilImg" src="..\img\Perfil.png" alt="Perfil">
-      </a>
+            <div class="center">
+                <img onclick="perfil()" class="perfilImg" src="..\img\Perfil.png" alt="Perfil">
+                <div id="user_info" class="user_info closed">
+                    <button onclick="perfil()" class="close"> X </button>
+                </div>
     </header>
 
     <section class="config_principalRegistros">
@@ -107,8 +109,8 @@
                                 <div class="blocosdeStatusRegistro statusCritico">Cheio</div>
                             </div>
                         </div>
-                        </div>
-                        <div id="tela2" class="configDosconteinersRegistro">
+                    </div>
+                    <div id="tela2" class="configDosconteinersRegistro">
 
                         <!-- Registro 5 -->
                         <div class="conteinerDisposto01">
@@ -151,30 +153,43 @@
                         </div>
 
                     </div>
+                </div>
             </div>
-        </div>
     </section>
 </body>
 
 </html>
 
 <script>
-telas()
-function telas() {
-    let recursos = document.getElementById("selectUnidade").value;
+    user_info.innerHTML += `Nome: <br> <label class="dado"> ${sessionStorage.NOME_USUARIO} </label> <br> Email: <br> <label class="dado"> ${sessionStorage.EMAIL_USUARIO} </label> <br> Telefone: <br> <label class="dado"> ${sessionStorage.TELEFONE_USUARIO} <br> <br> </label> <button class="sair" onclick="limparSessao()"> SAIR </button>`
 
-    let tela1 = document.getElementById("tela1");
-    let tela2 = document.getElementById("tela2");
-
-    if (recursos == "1") {
-        tela1.style.display = "flex";
-        tela2.style.display = "none";
+    function perfil() {
+        let painel = document.getElementById("user_info")
+        if (painel.className == "user_info closed") {
+            painel.className = "user_info open"
+        }
+        else {
+            painel.className = "user_info closed"
+        }
     }
 
-    if (recursos == "2") {
-        tela1.style.display = "none";
-        tela2.style.display = "flex";
+    telas()
+
+    function telas() {
+        let recursos = document.getElementById("selectUnidade").value;
+
+        let tela1 = document.getElementById("tela1");
+        let tela2 = document.getElementById("tela2");
+
+        if (recursos == "1") {
+            tela1.style.display = "flex";
+            tela2.style.display = "none";
+        }
+
+        if (recursos == "2") {
+            tela1.style.display = "none";
+            tela2.style.display = "flex";
+        }
     }
-}
 
 </script>

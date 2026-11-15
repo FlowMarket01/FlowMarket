@@ -187,3 +187,21 @@ body {
     font-size: 14px;
     margin-bottom: 10px;
 }
+
+.imagens {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 50px;
+}
+
+.logoCarrinho {
+    width: 45px;
+    height: 45px;
+}
+
+.logoNome {
+    width: 160px;
+    height: auto;
+}

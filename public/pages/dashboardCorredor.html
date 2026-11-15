@@ -11,6 +11,7 @@
       }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/sessao.js"></script>
   </head>
   <body>
     <header class="cabecaLhoDash">
@@ -21,18 +22,21 @@
       </a>
         <div class="cabecalhoButtonBar">
           <a href="dashboardCaixa.html"  class="cabecalhoButton branco">
-            <img src="..\img\CorredorImg.svg" alt="Corredor">
+            <img src="..\img\PessoasImg.svg" alt="Corredor">
           </a>
           <a href="dashboardCorredor.html" class="ButtonSelecionado cabecalhoButton verdeclaro">
-            <img src="..\img\PessoasImg.svg" alt="Corredor">
+            <img src="..\img\CorredorImg.svg" alt="Corredor">
           </a>
           <a href="registros.html" class="cabecalhoButton branco">
             <img src="..\img\RelatórioImg.svg" alt="Corredor">
           </a>
         </div>
-      <a href="">
-        <img class="perfilImg" src="..\img\Perfil.png" alt="Perfil">
-      </a>
+
+      <div class="center">
+        <img onclick="perfil()" class="perfilImg" src="..\img\Perfil.png" alt="Perfil">
+        <div id="user_info" class="user_info closed">
+          <button onclick="perfil()" class="close"> X </button>
+      </div>
     </header>
 
     <main class="mainDash">
@@ -118,6 +122,17 @@
     </main>
 
     <script>
+      user_info.innerHTML += `Nome: <br> <label class="dado"> ${sessionStorage.NOME_USUARIO} </label> <br> Email: <br> <label class="dado"> ${sessionStorage.EMAIL_USUARIO} </label> <br> Telefone: <br> <label class="dado"> ${sessionStorage.TELEFONE_USUARIO} <br> <br> </label> <button class="sair" onclick="limparSessao()"> SAIR </button>` 
+
+      function perfil(){
+        let painel = document.getElementById("user_info")
+        if (painel.className == "user_info closed"){
+          painel.className = "user_info open"
+        }
+        else{
+          painel.className = "user_info closed"
+        }
+      }
       let corredoresRanking = [
         { identificacao: "Corredor 1", pontuacao: 1482 },
         { identificacao: "Corredor 2", pontuacao: 1244 },
