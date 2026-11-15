@@ -6,7 +6,7 @@
     <title>FlowMarket</title>
     <link rel="stylesheet" href="../css/styleDash.css" />
     <script>
-      if (sessionStorage.getItem("usuario_autenticado") != "true") {
+      if (!sessionStorage.ID_USUARIO) {
         window.location.replace("login.html");
       }
     </script>
