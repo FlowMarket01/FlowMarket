@@ -12,6 +12,10 @@ html{
     zoom: 0.83;
 }
 
+body{
+    background-color: #F4F7F5;
+}
+
 .branco{
     background-color: #FFFFFF;
 }
@@ -28,6 +32,7 @@ html{
 .cabecaLhoDash{
   display: flex;
   flex-direction: column;
+  background-color: #FFFFFF;
   height: 100%;
   width: 96px; 
   top: 0;
@@ -228,7 +233,7 @@ html{
     width: 100%;
     padding: 20px;
     border-radius: 10px;
-    height: 250px;
+    height: 280px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -292,6 +297,75 @@ html{
 .periodoDash select:focus{
     outline: none;
     box-shadow: none;
+}
+
+.dashboardCaixa .mainDash{
+    padding: 20px 36px;
+}
+
+.dashboardCaixa .mainDash > h1:first-of-type{
+    font-size: 3.2rem;
+}
+
+.dashboardCaixa .mainDash > p:first-of-type{
+    font-size: 1.4rem;
+}
+
+.dashboardCaixa .periodoDash{
+    height: 48px;
+    gap: 10px;
+    margin-top: 12px;
+    font-size: 1.3rem;
+}
+
+.dashboardCaixa .sectionKpis{
+    gap: 8px;
+}
+
+.dashboardCaixa .kpisDiv{
+    gap: 16px;
+}
+
+.dashboardCaixa .cardKpi{
+    min-width: 260px;
+    padding: 8px;
+}
+
+.dashboardCaixa .cardKpi h3{
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.dashboardCaixa .cardKpi h1{
+    font-size: 2.4rem;
+}
+
+.dashboardCaixa .sectionDash{
+    margin: 14px 0 4px;
+    gap: 14px;
+}
+
+.dashboardCaixa .divCard{
+    padding: 16px;
+    gap: 8px;
+}
+
+.dashboardCaixa .divCard h1{
+    font-size: 2rem;
+}
+
+.dashboardCaixa .divCard p{
+    font-size: 1.2rem;
+}
+
+.dashboardCaixa .supDivSelect{
+    gap: 16px;
+}
+
+.dashboardCaixa .supDivSelect select,
+.dashboardCaixa .periodoDash select{
+    width: 150px;
+    padding: 6px;
 }
 
 @media (max-height: 600px){
