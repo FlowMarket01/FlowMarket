@@ -95,13 +95,13 @@
         function validarNome() {
             let Nome = ipt_nome.value.trim();
 
-            if (Nome.length >= 4) {
+            if (Nome.length >= 3) {
                 msg_nome.style.color = 'green';
                 msg_nome.className = 'msg-valida';
                 msg_nome.innerHTML = '';
             } else {
                 msg_nome.style.color = 'red';
-                msg_nome.innerHTML="O nome deve conter no mínimo quatro letras"
+                msg_nome.innerHTML="O nome deve conter no mínimo 3 letras"
                 msg_nome.className = 'msg-validacao';
             }
         }
