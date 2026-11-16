@@ -26,21 +26,21 @@
         <div class="campo">
             <label for="ipt_nome">Nome</label>
             <input type="text" id="ipt_nome" class="form-input" placeholder="Ex: João" oninput="validarNome()" required>
-            <p class="msg-validacao" id="msg_nome">O nome deve conter no mínimo quatro letras</p>
+            <p class="msg-validacao" id="msg_nome"></p>
         </div>
         <div class="campo">
             <label for="ipt_sobrenome">Sobrenome</label>
             <input type="text" id="ipt_sobrenome" class="form-input" placeholder="Ex: da Silva"
                 oninput="validarSobrenome()" required>
-            <p class="msg-validacao" id="msg_sobrenome">O sobrenome deve conter no mínimo quatro letras</p>
+            <p class="msg-validacao" id="msg_sobrenome"></p>
         </div>
 
         <div class="campo">
             <label for="ipt_email">E-mail Corporativo</label>
             <input type="email" id="ipt_email" class="form-input" placeholder="Ex: nome@empresa.com.br"
                 oninput="validarEmail()" required>
-            <p id="msg_email" class="msg-validacao">seu e-mail corporativo deve conter o @</p>
-            <p id="msg_email_dominio" class="msg-validacao">seu e-mail corporativo deve conter o domínio válido</p>
+            <p id="msg_email" class="msg-validacao"></p>
+            <p id="msg_email_dominio" class="msg-validacao"></p>
 
         </div>
 
@@ -50,11 +50,10 @@
                     placeholder="Mínimo de 8 caracteres" oninput="validarSenha(); confirmarSenha()" required>
                 <button type="button" id="visualizar_senha" onclick="visualizarSenha()">👁</button>
             </div>
-            <p id="senha_8carcteres" class="msg-validacao">A senha precisa ter no mínimo 8 caracteres</p>
-            <p id="senha_especial" class="msg-validacao">A senha deve conter no mínimo 2 caracteres especiais</p>
-            <p id="senha_numero" class="msg-validacao">A senha deve conter no mínimo 2 números</p>
-            <p id="letramaiuscula_minuscula" class="msg-validacao">A senha deve conter no mínimo duas letras maiúsculas
-                e minúsculas</p>
+            <p id="senha_8carcteres" class="msg-validacao"></p>
+            <p id="senha_especial" class="msg-validacao"></p>
+            <p id="senha_numero" class="msg-validacao"></p>
+            <p id="letramaiuscula_minuscula" class="msg-validacao"></p>
 
         </div>
 
@@ -62,7 +61,7 @@
             <label for="ipt_conf_senha">Confirmar senha</label>
             <input type="password" id="ipt_conf_senha" class="form-input" placeholder="Repita sua senha"
                 oninput="confirmarSenha()" required>
-            <p id="msg_conf_senha" class="msg-validacao">As senhas não coincidem</p>
+            <p id="msg_conf_senha" class="msg-validacao"></p>
         </div>
 
 
@@ -70,7 +69,7 @@
             <label for="ipt_telefone">Telefone:</label>
             <input type="tel" id="ipt_telefone" class="form-input" placeholder="(11) 99999-9999"
                 oninput="validarTelefone()">
-            <p id="msg_telefone" class="msg-validacao">o telefone é valido</p>
+            <p id="msg_telefone" class="msg-validacao"></p>
         </div>
 
         <div>
@@ -99,8 +98,10 @@
             if (Nome.length >= 4) {
                 msg_nome.style.color = 'green';
                 msg_nome.className = 'msg-valida';
+                msg_nome.innerHTML = '';
             } else {
                 msg_nome.style.color = 'red';
+                msg_nome.innerHTML="O nome deve conter no mínimo quatro letras"
                 msg_nome.className = 'msg-validacao';
             }
         }
@@ -108,10 +109,11 @@
             let Sobrenome = ipt_sobrenome.value.trim();
 
             if (Sobrenome.length >= 4) {
-                msg_sobrenome.style.color = 'green';
                 msg_sobrenome.className = 'msg-valida';
+                msg_sobrenome.innerHTML = '';
             } else {
                 msg_sobrenome.style.color = 'red';
+                msg_sobrenome.innerHTML="O sobrenome deve conter no mínimo quatro letras";
                 msg_sobrenome.className = 'msg-validacao';
             }
         }
@@ -119,11 +121,13 @@
             let email = ipt_email.value;
             if (!email.includes("@")) {
                 msg_email.style.color = "red";
+                msg_email.innerHTML="seu e-mail corporativo deve conter o @ ";
                 msg_email.className = 'msg-validacao';
 
             } else {
                 msg_email.style.color = "green";
                 msg_email.className = 'msg-valida';
+                msg_email.innerHTML="";
             }
 
             if (
@@ -132,9 +136,11 @@
                 !email.includes("outlook.com")
             ) {
                 msg_email_dominio.style.color = "red";
+                msg_email_dominio.innerHTML="seu e-mail corporativo deve conter o domínio válido"
                 msg_email_dominio.className = 'msg-validacao';
             } else {
                 msg_email_dominio.style.color = "green";
+                msg_email_dominio.innerHTML="";
                 msg_email_dominio.className = 'msg-valida';
             }
         }
@@ -146,10 +152,11 @@
             let numeros = /[0-9]/;
 
             if (senha.length >= 8) {
-                senha_8carcteres.style.color = 'green';
                 senha_8carcteres.className = 'msg-valida'
+                senha_8carcteres.innerHTML=""
             } else {
                 senha_8carcteres.style.color = 'red';
+                senha_8carcteres.innerHTML="A senha deve conter 8 caracteres no mínimo";
                 senha_8carcteres.className = 'msg-validacao'
             }
 
@@ -163,9 +170,11 @@
             }
             if (count_especiais >= 2) {
                 senha_especial.style.color = 'green';
+                senha_especial.innerHTML="";
                 senha_8carcteres.className = 'msg-valida'
             } else {
                 senha_especial.style.color = 'red';
+                senha_especial.innerHTML="A senha deve conter no mínimo 2 caracteres especiais";
                 senha_8carcteres.className = 'msg-validacao'
             }
             //-----------------------------------------------------
@@ -178,9 +187,11 @@
             }
             if (count_numeros >= 2) {
                 senha_numero.style.color = 'green';
+                senha_numero.innerHTML="";
                 senha_8carcteres.className = 'msg-valida'
             } else {
                 senha_numero.style.color = 'red';
+                senha_numero.innerHTML="A senha deve conter no mínimo 2 números";
                 senha_8carcteres.className = 'msg-validacao'
             }
             //---------------------------------------------------
@@ -196,9 +207,11 @@
             }
             if (count_letras_minusculas >= 2 && count_letras_maiusculas >= 2) {
                 letramaiuscula_minuscula.style.color = 'green';
+                letramaiuscula_minuscula.innerHTML=""
                 senha_8carcteres.className = 'msg-valida'
             } else {
                 letramaiuscula_minuscula.style.color = 'red';
+                letramaiuscula_minuscula.innerHTML="A senha deve conter no mínimo 2 letras manúsculas e duas letras maiúsculas"
                 senha_8carcteres.className = 'msg-validacao'
             }
         }
@@ -222,10 +235,11 @@
                 msg_conf_senha.innerHTML = '';
             } else {
                 if (senha === conf_senha) {
-                    msg_conf_senha.innerHTML = `Senhas iguais!`;
+                    msg_conf_senha.innerHTML = ``;
                     msg_conf_senha.className = `msg-valida`;
                 } else {
                     msg_conf_senha.innerHTML = `As senhas não coincidem`;
+                    msg_conf_senha.style.color="red";
                     msg_conf_senha.className = `msg-validacao`;
                 }
             }
@@ -252,7 +266,7 @@
             if (telefone.length === 11) {
                 msg_telefone.style.color = 'green';
                 msg_telefone.className = `msg-valida`;
-                msg_telefone.innerHTML = 'o telefone é válido';
+                msg_telefone.innerHTML = '';
             } else {
                 msg_telefone.style.color = 'red';
                 msg_telefone.className = `msg-validacao`;
