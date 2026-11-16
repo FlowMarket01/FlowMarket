@@ -11,6 +11,10 @@ body{
 
 .cabecaLhoDash {
     display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #ffffff;
     align-items: center;
     justify-content: space-between;
     gap: 32px;
