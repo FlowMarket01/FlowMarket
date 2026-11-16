@@ -6,13 +6,14 @@
     <title>FlowMarket - Caixas</title>
     <link rel="stylesheet" href="../css/styleDash.css" />
     <script>
-      if (sessionStorage.getItem("usuario_autenticado") != "true") {
+      if (!sessionStorage.ID_USUARIO) {
         window.location.replace("login.html");
       }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/sessao.js"></script>
   </head>
-  <body>
+  <body class="dashboardCaixa">
       <header class="cabecaLhoDash">
       <a href="..\index.html">
         <div onclick="" class="molduraLogo" href="./pages/login.html">
@@ -21,19 +22,23 @@
       </a>
         <div class="cabecalhoButtonBar">
           <a href="dashboardCaixa.html" class="ButtonSelecionado cabecalhoButton verdeclaro">
-            <img src="..\img\CorredorImg.svg" alt="Corredor">
+            <img src="..\img\PessoasImg.svg" alt="Corredor">
           </a>
           <a href="dashboardCorredor.html" class=" cabecalhoButton branco">
-            <img src="..\img\PessoasImg.svg" alt="Corredor">
+            <img src="..\img\CorredorImg.svg" alt="Corredor">
           </a>
           <a href="registros.html" class="cabecalhoButton branco">
             <img src="..\img\RelatórioImg.svg" alt="Corredor">
           </a>
         </div>
       
-      <a href="">
-        <img class="perfilImg" src="..\img\Perfil.png" alt="Perfil">
-      </a>
+      <div class="center">
+        <img onclick="perfil()" class="perfilImg" src="..\img\Perfil.png" alt="Perfil">
+        <div id="user_info" class="user_info closed">
+          <button onclick="perfil()" class="close"> X </button>
+      </div>
+      </div>
+      
     </header>
     <main class="mainDash">
       <h1 id="tituloPeriodo">Filas dos caixas - últimas 24 horas</h1>
@@ -121,6 +126,18 @@
     </main>
 
     <script>
+      user_info.innerHTML += `Nome: <br> <label class="dado"> ${sessionStorage.NOME_USUARIO} </label> <br> Email: <br> <label class="dado"> ${sessionStorage.EMAIL_USUARIO} </label> <br> Telefone: <br> <label class="dado"> ${sessionStorage.TELEFONE_USUARIO} <br> <br> </label> <button class="sair" onclick="limparSessao()"> SAIR </button>` 
+
+      function perfil(){
+        let painel = document.getElementById("user_info")
+        if (painel.className == "user_info closed"){
+          painel.className = "user_info open"
+        }
+        else{
+          painel.className = "user_info closed"
+        }
+      }
+
       let caixasRanking = [
         { identificacao: "Caixa 1", minutosEmCheio: 96 },
         { identificacao: "Caixa 2", minutosEmCheio: 141 },

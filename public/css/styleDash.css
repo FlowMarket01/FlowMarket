@@ -12,6 +12,10 @@ html{
     zoom: 0.83;
 }
 
+body{
+    background-color: #F4F7F5;
+}
+
 .branco{
     background-color: #FFFFFF;
 }
@@ -28,6 +32,7 @@ html{
 .cabecaLhoDash{
   display: flex;
   flex-direction: column;
+  background-color: #FFFFFF;
   height: 100%;
   width: 96px; 
   top: 0;
@@ -35,6 +40,7 @@ html{
   position: fixed; 
   padding: 20px;
   align-items: center;
+  z-index: 10;
 }
 
 .cabecaLhoDash h1 span{
@@ -52,7 +58,7 @@ html{
     filter: brightness(0) saturate(100%) invert(100%) sepia(3%) saturate(500%) hue-rotate(275deg) brightness(115%) contrast(100%);
 }
 
-.cabecaLhoDash > a:last-child {
+.cabecaLhoDash > div:last-child {
     justify-self: flex-end;
     margin-top: auto;
 }
@@ -87,6 +93,8 @@ html{
 }
 
 .mainDash{
+    position: relative;
+    z-index: 1;
     background-color: #F4F7F5;
     padding: 25px 50px;
     margin-left: 96px;
@@ -228,7 +236,7 @@ html{
     width: 100%;
     padding: 20px;
     border-radius: 10px;
-    height: 250px;
+    height: 280px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -292,6 +300,163 @@ html{
 .periodoDash select:focus{
     outline: none;
     box-shadow: none;
+}
+
+.dashboardCaixa .mainDash{
+    padding: 20px 36px;
+}
+
+.dashboardCaixa .mainDash > h1:first-of-type{
+    font-size: 3.2rem;
+}
+
+.dashboardCaixa .mainDash > p:first-of-type{
+    font-size: 1.4rem;
+}
+
+.dashboardCaixa .periodoDash{
+    height: 48px;
+    gap: 10px;
+    margin-top: 12px;
+    font-size: 1.3rem;
+}
+
+.dashboardCaixa .sectionKpis{
+    gap: 8px;
+}
+
+.dashboardCaixa .kpisDiv{
+    gap: 16px;
+}
+
+.dashboardCaixa .cardKpi{
+    min-width: 260px;
+    padding: 8px;
+}
+
+.dashboardCaixa .cardKpi h3{
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.dashboardCaixa .cardKpi h1{
+    font-size: 2.4rem;
+}
+
+.dashboardCaixa .sectionDash{
+    margin: 14px 0 4px;
+    gap: 14px;
+}
+
+.dashboardCaixa .divCard{
+    padding: 16px;
+    gap: 8px;
+}
+
+.dashboardCaixa .divCard h1{
+    font-size: 2rem;
+}
+
+.dashboardCaixa .divCard p{
+    font-size: 1.2rem;
+}
+
+.dashboardCaixa .supDivSelect{
+    gap: 16px;
+}
+
+.dashboardCaixa .supDivSelect select,
+.dashboardCaixa .periodoDash select{
+    width: 150px;
+    padding: 6px;
+}
+
+/* Painel perfil - usuário */
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.user_info{
+    z-index: 2;
+    box-shadow:0 -40px 0px 0#0F4C3A, 15px 5px 25px -20px #00000073;
+    width:max-content;
+    position: absolute;
+    flex-direction: column;
+    bottom: 3px;
+    font-size: 1.6rem;
+    font-weight: bold;
+
+    padding: 20px;
+    border-radius: 0px 10px 10px 0px;
+    background-color: #FFFFFF;
+    color: #0F4C3A;
+
+    transition-property: display left;
+    transition-duration: 0.5s;
+    transition-behavior: allow-discrete;
+}
+
+.user_info .close{
+    font-size: 1.8rem;
+    top: -35px;
+    left: 180px;
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    color: #F4F7F5;
+    font-weight: bolder;
+}
+
+.user_info .close:hover{
+    cursor: pointer;
+}
+
+.closed{
+    display: none;
+    opacity: 0;
+    left: 0;
+
+    @starting-style{
+        left: 96px;
+        opacity: 1;
+    }
+}
+
+.open{
+    display: flex;
+    left: 96px;
+    opacity: 1;
+
+    @starting-style{
+        left: 0;
+        opacity: 0;
+    }
+}
+
+.user_info .dado{
+    font-size: 1.4rem;
+    font-weight: normal;
+    color: #797979;
+}
+
+.perfilImg:hover{
+    cursor: pointer;
+}
+
+.sair{
+    border: none;
+    border-radius: 3px;
+    color: #F4F7F5;
+    font-weight: bold;
+    background-color: #0F4C3A;
+}
+
+.sair:hover{
+    background-color: #6AAE48;
+    cursor: pointer;
 }
 
 @media (max-height: 600px){
