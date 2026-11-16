@@ -22,7 +22,7 @@
             <a href="#como-funciona">Como funciona</a>
             <a href="#solucao">Solução</a>
         </nav>
-        <div class="acoesCabecalho">
+        <div id="acoesCabecalho" class="acoesCabecalho">
             <a class="botaoEntrar" href="./pages/login.html">Entrar</a>
             <a class="botaoCadastrar" href="./pages/cadastro.html">Cadastrar</a>
         </div>
@@ -589,6 +589,10 @@
     </footer>
 </body>
 <script>
+    if (sessionStorage.ID_USUARIO) {
+        acoesCabecalho.innerHTML = '<a class="botaoCadastrar" href="./pages/dashboardCaixa.html">Dashboard</a>'
+    }
+
     function calcular() {
         let escala = ipt_escala.value;
         let caixas = Number(ipt_caixas.value);
