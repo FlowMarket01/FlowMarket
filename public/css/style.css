@@ -1018,6 +1018,7 @@ display: flex;
 
     box-sizing: border-box;
     overflow: hidden;
+    align-items: center;
 }
 
 .calculadora {
@@ -1029,7 +1030,7 @@ display: flex;
 }
 
 .mostra {
-    padding: 40px;
+    padding: 50px;
     border-radius: 10px;
     background-color: #FFFFFF;
     width: fit-content;
@@ -1037,6 +1038,7 @@ display: flex;
     min-width: 0;
     margin: 30px;
     overflow-wrap: break-word;
+    max-height: 650px;
 }
 
 .semibold {
@@ -1049,6 +1051,10 @@ display: flex;
 
 .medium_size {
     font-size: 20px;
+}
+
+.red{
+    color: #cc0000;
 }
 
 .green {
