@@ -2,7 +2,8 @@ const e = require("cors");
 var caixaModel = require("../models/caixaModel")
 
 function coletar(req, res) {
-        caixaModel.coletar()
+        var id = req.body.idServer;
+        caixaModel.coletar(id)
             .then((resultado)  => {
                     console.log(`\nResultados encontrados: ${resultado.length}`);
                     //console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String

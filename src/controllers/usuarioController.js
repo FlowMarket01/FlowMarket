@@ -20,6 +20,7 @@ function autenticar(req, res) {
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
                                     res.json({
+                                        id_mercado: resultadoAutenticar[0].idMercado,
                                         id: resultadoAutenticar[0].idUsuario,
                                         email: resultadoAutenticar[0].email,
                                         nome: resultadoAutenticar[0].nomeCompleto,

@@ -95,6 +95,7 @@
                         console.log(resposta);
 
                         resposta.json().then(json => {
+                            sessionStorage.ID_MERCADO = json.id_mercado;
                             sessionStorage.ID_USUARIO = json.id;
                             sessionStorage.EMAIL_USUARIO = json.email;
                             sessionStorage.NOME_USUARIO = json.nome;

@@ -137,6 +137,9 @@
             headers: {
                 "Content-Type": "application/json",
             },
+              body: JSON.stringify({
+                idServer: sessionStorage.ID_MERCADO
+            })
         })
 
             .then((resposta) => {
@@ -145,7 +148,6 @@
                       let ids = [];
                       let minutos = [];
                       for(let i = 0; i < json.length; i++){
-                        console.log(json[i].identificacao);
                         ids.push(json[i].minutosPresenca);
                         minutos.push(json[i].minutosPresenca);
                       }
@@ -157,6 +159,8 @@
                   }
                 })
       }
+
+      setInterval(buscar, 2000);
 
       function perfil(){
         let painel = document.getElementById("user_info")
