@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="pt-br">
+
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlowMarket - Caixas</title>
+    <link rel="stylesheet" href="..\css\styleDash_geral.css" />
+
+
+    <!-- "Porteiro" da página: se não houver o item "usuario_autenticado" = "true"
+         no sessionStorage (gravado no login), manda o usuário de volta ao login.
+         replace() troca a página no histórico, então o botão "voltar" não reabre o dashboard. -->
+    <!--  <script>
+      if (sessionStorage.getItem("usuario_autenticado") != "true") {
+        window.location.replace("login.html");
+      }
+    </script>-->
+
+
+    <!-- Biblioteca Chart.js carregada via CDN. Ela cria a classe global "Chart". -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+
+<body>
+    <!-- ========== CABEÇALHO: logo + botões de navegação + perfil ========== -->
+    <header class="cabecaLhoDash">
+        <a href="..\index.html">
+            <div onclick="" class="molduraLogo" href="./pages/login.html">
+                <img src="../img/iconCart.png" alt="iconCart" />
+            </div>
+        </a>
+        <div class="cabecalhoButtonBar">
+            <!-- "ButtonSelecionado" marca a página atual -->
+            <a href="dashboardCaixa.html" class="ButtonSelecionado cabecalhoButton verdeclaro">
+                <img src="..\img\CorredorImg.svg" alt="Corredor" />
+            </a>
+            <a href="dashboardCorredor.html" class=" cabecalhoButton branco">
+                <img src="..\img\PessoasImg.svg" alt="Corredor" />
+            </a>
+            <a href="registros.html" class="cabecalhoButton branco">
+                <img src="..\img\RelatórioImg.svg" alt="Corredor" />
+            </a>
+        </div>
+
+
+        <a href="">
+            <img class="perfilImg" src="..\img\Perfil.png" alt="Perfil" />
+        </a>
+    </header>
+
+
+    <main class="mainDash">
+        <!-- O id permite que o JS troque o texto do título conforme o período -->
+        <h1 id="tituloPeriodo">Visão geral dos últimos 30 dias</h1>
+        <p>
+            Mercado Caramico - leituras dos sensores ultrassônicos das zonas de fila
+            - dados de demonstração
+        </p>
+
+
+
+
+
+
+        <!-- ========== KPIs (cartões com números) ========== -->
+        <section class="sectionKpis">
+            <div class="kpisDiv" id="cardKpi_FilasCaixas">
+                <div class="cardKpi" id="cardKpi_CaixasFilaCheiaAgora">
+                    <h3 id="h3_caixasFilaCheiaAgora">Caixas com fila cheia agora</h3>
+                    <!-- valor fixo "2 de 5": por enquanto é só demonstração, o JS não altera -->
+                    <h1 id="h1_caixasFilaCheiaAgora">2 de 5</h1>
+                </div>
+                <div class="cardKpi" id="cardKpi_tempoTotalFilaCheia">
+                    <h3 id="h3_tempoTotalFilaCheia">
+                        Tempo total em fila cheia nas últimas 24 horas
+                    </h3>
+                    <!-- este valor é recalculado pelo JS (função tempoTotalFilaCheia) -->
+                    <h1 id="h1_tempoTotalFilaCheia">5h 21min</h1>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ========== GRÁFICOS ========== -->
+        <section id="sectionGraficoCaixa" class="sectionDash">
+            <div id="cardCaixaPicoOcupacao" class="divCard">
+                <h1>Progresso diário no nível cheio das filas</h1>
+                <div id="supCaixaPicoOcupacao" class="supDivSelect">
+                    <p id="descricaoCaixaOcupacao">
+                        Monitoramento diário por dia do mês em porcentagem (%)
+                    </p>
+
+
+                </div>
+                <div class="chartContainer">
+                    <canvas id="graficoLinhaCaixaPicoOcupacao" class="canvasGrafico"
+                        aria-label="Gráfico de linha do pico de ocupação por caixa"></canvas>
+                </div>
+            </div>
+
+
+        </section>
+    </main>
+
+
+    <script>
+        // =====================================================================
+        // 1) DADOS (por enquanto, dados de demonstração escritos à mão)
+        // =====================================================================
+
+
+        // Array de OBJETOS: cada caixa tem um nome e os minutos que ficou "cheia" em 24h.
+        let caixasRanking = [
+            { identificacao: "Caixa 1", minutosEmCheio: 96 },
+            { identificacao: "Caixa 2", minutosEmCheio: 141 },
+            { identificacao: "Caixa 3", minutosEmCheio: 48 },
+            { identificacao: "Caixa 4", minutosEmCheio: 24 },
+            { identificacao: "Caixa 5", minutosEmCheio: 12 },
+        ];
+
+
+        // Objeto onde a CHAVE é o nome do caixa e o VALOR é um array com o estado
+        // da fila em cada hora do dia (0 = Vazio, 1 = Leve, 2 = Moderado, 3 = Cheio).
+        // Ou seja: índice do array = hora do dia (posição 0 = 00h, posição 23 = 23h).
+        let caixaSeries = {
+            "Caixa 1": [
+                120, 80, 0, 45, 90, 180, 360, 100, 9, 111, 101, 200, 30, 98, 0, 70, 9, 50, 200, 120, 100, 40, 30, 100, 88, 33, 33, 60, 20,
+            ],
+            "Caixa 2": [
+                200, 30, 98, 0, 70, 180, 360, 100, 9, 111, 101, 120, 80, 0, 45, 90, 9, 50, 200, 120, 100, 40, 30, 100, 88, 33, 33, 60, 20,
+            ],
+            "Caixa 3": [
+                120, 80, 0, 45, 90, 180, 360, 100, 9, 111, 101, 200, 30, 98, 0, 70, 9, 50, 200, 120, 100, 40, 30, 100, 88, 33, 33, 60, 20,
+            ],
+            "Caixa 4": [
+                120, 80, 0, 45, 90, 180, 360, 100, 9, 111, 101, 200, 30, 98, 0, 70, 9, 50, 200, 120, 100, 40, 30, 100, 88, 33, 33, 60, 20,
+            ],
+            "Caixa 5": [
+                120, 80, 0, 45, 90, 180, 360, 100, 9, 111, 101, 200, 30, 98, 0, 70, 9, 50, 200, 200, 30, 98, 0, 70, 180, 360, 100, 9, 111,
+            ],
+        };
+        function percentualFilaCheia() {
+            let percentuais = []
+            for (let i = 0; i < caixaSeries["Caixa 1"].length; i++) {
+                let total = 0;
+
+
+                total += caixaSeries["Caixa 1"][i] + caixaSeries["Caixa 2"][i] +
+                    caixaSeries["Caixa 3"][i] + caixaSeries["Caixa 4"][i] + caixaSeries["Caixa 5"][i];
+                let percentual = (total / 7200) * 100
+                percentuais.push(percentual)
+
+
+            }
+            return percentuais;
+
+
+
+
+
+
+        }
+
+
+
+
+        // Traduz o número (0..3) em texto: estadosFila[2] -> "Moderado"
+
+
+        // Monta ["00h", "01h", ..., "23h"] para o eixo X.
+        // padStart(2, "0") completa com zero à esquerda: "5" -> "05".
+
+
+
+
+        // =====================================================================
+        // 2) FUNÇÕES AUXILIARES
+        // =====================================================================
+
+
+        // Gera os rótulos do eixo X conforme o período escolhido.
+        // 1 dia  -> só as 24 horas.
+        // 3 ou 7 -> "dd/mm hhh" para cada hora de cada dia (ex.: "13/11 08h").
+        function gerarRotulosPeriodo(dias) {
+
+
+            let data = new Date(); // agora
+            data.setDate(data.getDate() - dias + 1); // recua até o primeiro dia do período
+
+
+            let rotulos = [];
+            for (let dia = 0; dia < dias; dia++) {
+                rotulos.push(
+                    String(data.getDate()).padStart(2, "0") +
+                    "/" +
+                    String(data.getMonth() + 1).padStart(2, "0") // getMonth() começa em 0!
+
+
+                );
+                data.setDate(data.getDate() + 1); // avança um dia
+            }
+            return rotulos;
+        }
+
+
+
+
+
+
+        // Configurações visuais reutilizadas nos dois gráficos (tooltip = balãozinho ao passar o mouse)
+        /*NÃO MECHE*/
+        let tooltipMarca = {
+            backgroundColor: "#0F4C3A",
+            titleFont: { family: "'Poppins', sans-serif", weight: 600, size: 12 },
+            bodyFont: { family: "'Poppins', sans-serif", weight: 400, size: 12 },
+            padding: 10,
+            cornerRadius: 8,
+            displayColors: false, // esconde o quadradinho colorido
+        };
+
+
+        // Eixo Y numérico: começa no zero, sem casas decimais, grade clarinha
+        /*NÃO MECHE*/
+        let escalaContagem = {
+            beginAtZero: true,
+            ticks: { precision: 0 },
+            grid: { color: "rgba(15, 76, 58, 0.08)" },
+            border: { display: false },
+        };
+
+
+        // Eixo X de categorias (texto): sem grade
+        /*NÃO MECHE*/
+        let escalaCategorica = {
+            grid: { display: false },
+            border: { display: false },
+        };
+
+
+        // Soma os minutos em fila cheia de todos os caixas, multiplica pelos dias
+        // e escreve no KPI no formato "5h 21min".
+        // dia = 1 é um PARÂMETRO PADRÃO: se chamar sem o 2º argumento, vale 1.
+        function tempoTotalFilaCheia(caixasRanking, dia = 1) {
+            let total = 0;
+            for (let i = 0; i < caixasRanking.length; i++) {
+                total += caixasRanking[i].minutosEmCheio;
+            }
+
+
+            let minutosTotais = total * dia;
+            /*NÃO MECHE*/
+            let horasTotais = Math.floor(minutosTotais / 60); // parte inteira das horas
+            let minutosRestantes = minutosTotais % 60; // resto da divisão = minutos
+            // h1_tempoTotalFilaCheia funciona direto porque todo elemento com id
+            // vira uma variável global no navegador (atalho; o oficial é document.getElementById)
+            h1_tempoTotalFilaCheia.textContent =
+                `${horasTotais}h ${String(minutosRestantes).padStart(2, "0")}min`;
+        }
+
+
+        // =====================================================================
+        // 3) INICIALIZAÇÃO: roda quando a página termina de carregar
+        // =====================================================================
+
+
+
+
+        // =====================================================================
+        // 4) GRÁFICO DE BARRAS (Chart.js)
+        // new Chart(canvas, { type, data, options })
+        // =====================================================================
+
+
+
+
+
+
+        // =====================================================================
+        // 5) GRÁFICO DE LINHA (estado da fila por hora)
+        // =====================================================================
+        let graficoLinhaCaixa = new Chart(graficoLinhaCaixaPicoOcupacao, {
+            type: "line",
+            data: {
+                labels: gerarRotulosPeriodo(30), // eixo X: 00h..23h
+                datasets: [
+                    {
+                        // começa mostrando o primeiro caixa
+                        data: percentualFilaCheia(),
+                        borderColor: "#6AAE48",
+                        backgroundColor: "rgba(106, 174, 72, 0.10)",
+                        borderWidth: 2,
+                        fill: true, // pinta a área abaixo da linha
+                        // linha em "degraus" (estado muda de uma vez, não gradualmente)
+                        // esconde as bolinhas...
+                        pointHitRadius: 12, // ...mas mantém área de hover generosa
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    // Object.assign copia tooltipMarca e ACRESCENTA o callback do texto
+                    tooltip: Object.assign({}, tooltipMarca, {
+                        callbacks: {
+                            // contexto.parsed.y é o número (0..3) -> vira texto via estadosFila
+                            label: function (contexto) {
+                                return contexto.parsed.y.toFixed(1) + "%";
+                            },
+                        },
+                    }),
+                },
+                scales: {
+                    x: escalaCategorica,
+                    y: {
+                        min: 0,
+                        max: 100,
+                        ticks: {
+                            // troca os números do eixo Y pelos nomes dos estados
+                            callback: function (valor) {
+                                return [valor] + "%";
+                            },
+                        },
+                        border: { display: false },
+                    },
+                },
+            },
+        });
+
+
+
+
+    </script>
+</body>
+
+
+</html>
