@@ -142,7 +142,17 @@
             .then((resposta) => {
                 if (resposta.ok) {
                     resposta.json().then(json => {
-                      console.log(json)
+                      let ids = [];
+                      let minutos = [];
+                      for(let i = 0; i < json.length; i++){
+                        console.log(json[i].identificacao);
+                        ids.push(json[i].minutosPresenca);
+                        minutos.push(json[i].minutosPresenca);
+                      }
+                      
+                      graficoBarraCaixa.data.datasets[0].data = minutos;
+                      graficoBarraCaixa.data.labels = ids;
+                      graficoBarraCaixa.update();
                     })
                   }
                 })
@@ -266,18 +276,15 @@
       let graficoBarraCaixa = new Chart(graficoBarraCaixaMaiorTempo, {
         type: "bar",
         data: {
-          labels: caixasRanking.map(function (c) {
-            return c.identificacao;
-          }),
+          labels: ["Caixa 1", "Caixa 2", "Caixa 3"],
           datasets: [
             {
-              data: caixasRanking.map(function (c) {
-                return c.minutosEmCheio;
-              }),
+              label: "",
+              data: [],
               backgroundColor: "#0F4C3A",
               borderRadius: { topLeft: 6, topRight: 6 },
               maxBarThickness: 42,
-            },
+            }
           ],
         },
         options: {
@@ -337,14 +344,6 @@
         },
       });
 
-      sltCaixas.addEventListener("change", function () {
-        graficoLinhaCaixa.data.datasets[0].data = repetirSerieDiaria(
-          caixaSeries[sltCaixas.value],
-          Number(sltPeriodo.value),
-        );
-        graficoLinhaCaixa.update();
-      });
-
       function atualizarPeriodo() {
         let dias = Number(sltPeriodo.value);
         let textoPeriodo =
@@ -362,19 +361,6 @@
           ". Escolha o caixa para atualizar.";
         h3_tempoTotalFilaCheia.textContent =
           "Tempo total em fila cheia " + periodoComPreposicao;
-
-        graficoBarraCaixa.data.datasets[0].data = caixasRanking.map(
-          function (caixa) {
-            return caixa.minutosEmCheio * dias;
-          },
-        );
-        graficoLinhaCaixa.data.labels = rotulos;
-        graficoLinhaCaixa.data.datasets[0].data = repetirSerieDiaria(
-          caixaSeries[sltCaixas.value || caixasRanking[0].identificacao],
-          dias,
-        );
-        graficoBarraCaixa.update();
-        graficoLinhaCaixa.update();
         tempoTotalFilaCheia(caixasRanking, dias);
       }
 
