@@ -30,6 +30,9 @@
           <a href="registros.html" class="cabecalhoButton branco">
             <img src="..\img\RelatórioImg.svg" alt="Corredor">
           </a>
+          <button onclick="buscar()">
+            TESTE DE BUSCA DE DADOS
+          </button>
         </div>
       
       <div class="center">
@@ -127,6 +130,23 @@
 
     <script>
       user_info.innerHTML += `Nome: <br> <label class="dado"> ${sessionStorage.NOME_USUARIO} </label> <br> Email: <br> <label class="dado"> ${sessionStorage.EMAIL_USUARIO} </label> <br> Telefone: <br> <label class="dado"> ${sessionStorage.TELEFONE_USUARIO} <br> <br> </label> <button class="sair" onclick="limparSessao()"> SAIR </button>` 
+
+      function buscar() {
+        fetch("/caixas/coletar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+
+            .then((resposta) => {
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                      console.log(json)
+                    })
+                  }
+                })
+      }
 
       function perfil(){
         let painel = document.getElementById("user_info")
