@@ -52,13 +52,16 @@
     </header>
 
 
-    <main class="mainDash">
-        <!-- O id permite que o JS troque o texto do título conforme o período -->
-        <h1 id="tituloPeriodo">Visão geral dos últimos 30 dias</h1>
-        <p>
-            Mercado Caramico - leituras dos sensores ultrassônicos das zonas de fila
-            - dados de demonstração
-        </p>
+<main class="mainDash">
+    <div class="topoDash">
+        <div class="tituloDash">
+            <h1 id="tituloDash">Visão geral dos últimos 30 dias</h1>
+            <p>
+                Mercado Caramico - leituras dos sensores ultrassônicos das zonas de fila
+                - dados de demonstração
+            </p>
+        </div>
+    </div>
 
 
 
@@ -72,6 +75,13 @@
                     <h3 id="h3_caixasFilaCheiaAgora">Caixas com fila cheia agora</h3>
                     <!-- valor fixo "2 de 5": por enquanto é só demonstração, o JS não altera -->
                     <h1 id="h1_caixasFilaCheiaAgora">2 de 5</h1>
+                </div>
+                <div class="cardKpi" id="cardKpi_tempoTotalFilaCheia">
+                    <h3 id="h3_tempoTotalFilaCheia">
+                        Tempo total em fila cheia nas últimas 24 horas
+                    </h3>
+                    <!-- este valor é recalculado pelo JS (função tempoTotalFilaCheia) -->
+                    <h1 id="h1_tempoTotalFilaCheia">5h 21min</h1>
                 </div>
                 <div class="cardKpi" id="cardKpi_tempoTotalFilaCheia">
                     <h3 id="h3_tempoTotalFilaCheia">
