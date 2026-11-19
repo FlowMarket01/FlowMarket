@@ -446,17 +446,19 @@
                     <option value="medio">Médio</option>
                     <option value="grande">Grande</option>
                 </select> <br>
-                <span class="subtitle">Ticket médio de referência: R$ <span id="valor_ticket"></span></span><br><br>
+                <span class="subtitle" style="display: block; margin-top: 10px;">Ticket médio de referência para pequeno porte: R$ 5.79</span>
+                <span class="subtitle" style="display: block;">Ticket médio de referência para médio porte: R$ 6.91</span>
+                <span class="subtitle" style="display: block;">Ticket médio de referência para grande porte: R$ 8.03</span>
+
                 <br>
             </div>
 
             <div class="input">Quantidade de caixas em estado crítico<br><input type="number" id="ipt_caixas"
                     placeholder="2" oninput="calcular()" value="3"><br>
                 <span class="subtitle">Considera-se em estado crítico o caixa cuja fila tem entre 10 e 15 pessoas</span>
-            </div> <br><br>
+            </div> <br>
             <div class="input">Quantidade de clientes atendidos em um dia<br><input type="number" id="ipt_clientes"
                     placeholder="2" oninput="calcular()" value="220"><br>
-                <span class="subtitle">Considera-se em estado crítico o caixa cuja fila tem entre 10 e 15 pessoas</span>
             </div> <br><br>
 
         </div>
@@ -472,9 +474,6 @@
 
             <span class="semibold">Impacto estimado por caixa crítico<br>
                 <span class="lime" style="font-size: 28px; color: rgb(214, 160, 0);"> R$ <span id="total_por_caixa">28,95</span></span>
-            </span><br><br>
-            <span class="semibold">Valor Total Diário Perdido<br>
-                <span class="red" style="font-size: 28px;"> R$ <span id="total_diario">28,95</span></span>
             </span><br><br>
             
             <div class="aviso">
@@ -621,19 +620,17 @@
             clientes = 10
         }
 
-        valor_ticket.innerHTML = ticket;
-
         let renda_total = Number(ticket * caixas * clientes).toFixed(2);
         let perda_caixa = Number(renda_total * 0.1).toFixed(2);
         let total_caixa = perda_caixa / caixas;
 
-        total.innerHTML = perda_caixa
-
-        calc_pessoas.innerHTML = `/${clientes * caixas} pessoas`
+        calc_pessoas.innerHTML = `/dia`
 
         let valorDiarioPerdido = Number(ipt_clientes.value) * ticket * 0.1
 
-        total_diario.innerHTML = valorDiarioPerdido.toFixed(2)
+        // total_diario.innerHTML = valorDiarioPerdido.toFixed(2)
+
+        total.innerHTML = valorDiarioPerdido.toFixed(2)
 
         if (isNaN(total_caixa) || caixas <= 0) {
             total_por_caixa.innerHTML = 0.00
