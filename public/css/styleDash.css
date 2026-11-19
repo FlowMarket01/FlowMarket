@@ -6,7 +6,6 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
-
 html{
     font-size: 65.5%;
     zoom: 0.83;
@@ -63,6 +62,7 @@ body{
     margin-top: auto;
 }
 
+
 .cabecalhoButton{
     cursor: pointer;
     display: flex;
@@ -99,17 +99,26 @@ body{
     padding: 25px 50px;
     margin-left: 96px;
 
-
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: minmax(50px, 0.85fr) minmax(0, 2fr);
+    grid-template-areas:
+        "topo topo"
+        "periodo periodo"
+        "kpis graficos";
 }
 
-.mainDash > h1:first-of-type{
+.topoDash{
+    grid-area: topo;
+    display: flex;
+    align-items: center;
+}
+
+.tituloDash h1{
     font-size: 3.6rem;
     color: #0F4C3A;
 }
 
-.mainDash > p:first-of-type{
+.tituloDash p{
     font-size: 1.6rem;
     color: #797979;
 }
@@ -119,6 +128,7 @@ body{
     flex-direction: column;
     gap: 10px;
     /* margin: 10px 0; */
+    grid-area: kpis;
 }
 
 .titulo_kpiDiv{
@@ -128,12 +138,15 @@ body{
 }
 
 
-.alerta_kpiDiv { /* colocar o método hidden posteriormente */
+.alerta_kpiDiv {
     position: absolute;
     top: 0;
     left: 470px;
     display: flex;
     align-items: center;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 350px;
     gap: 40px;
     padding: 10px 24px;
     background-color: #FFF3C4;
@@ -184,30 +197,42 @@ body{
 .kpisDiv{
     /* border: 4px solid rgb(255, 221, 0); */
     display: flex;
+    align-items: center;
     gap: 20px;
+    flex-direction: column;
     justify-content: center;
-    flex-wrap: wrap;
+    height: 100vh;
 }
 
 .cardKpi{
-    min-width: 290px;
-    width: calc(100vw / 3.5);
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    border-left: 5px solid #6AAE48;
+    min-width: 0;
+    width: 100%;
+    align-items: space-between;
+    max-width: 350px;
+    height: 120px;
+    border: 1px solid #0F4C3A;
+    border-radius: 15px;
+    padding: 5px;
     background-color: #fff;
 }
 
 .cardKpi h3{
-    color: #b4b4b4;
-    font-weight: 400;
-    margin: 0 0 5px 0;
+    color: #0a372a;
+    font-weight: 30000;
+    margin: 0 0 3px 0;
 }
 
 .cardKpi h1{
     color: #0F4C3A;
-    margin: 5px 0 0 0;
+    margin: 3px 0 0 0;
+    font-size: 20px;
+}
+.cardKpi p {
+    margin-right: 0px;
+    color: #8D0000;
+    font-size: 9.5px;
+    font-weight: 600;
+    margin-top: 20px
 }
 
 .periodoDash{
@@ -220,6 +245,7 @@ body{
     color: #0F4C3A;
     font-size: 1.4rem;
     font-weight: 600;
+    grid-area: periodo;
 }
 
 .sectionDash{
@@ -228,15 +254,16 @@ body{
     margin: 20px 0px 5px 0px;
     gap: 20px;
     align-items: stretch;
+    grid-area: graficos;
 }
 
 
 .divCard{
     background-color: #fff;
-    width: 100%;
+    width: 900px;
     padding: 20px;
     border-radius: 10px;
-    height: 280px;
+    height: 240px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -326,11 +353,11 @@ body{
 }
 
 .dashboardCaixa .kpisDiv{
-    gap: 16px;
+    gap: 40px;
 }
 
 .dashboardCaixa .cardKpi{
-    min-width: 260px;
+    min-width: 0;
     padding: 8px;
 }
 
@@ -354,17 +381,22 @@ body{
 }
 
 .dashboardCaixa .divCard h1{
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .dashboardCaixa .divCard p{
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .dashboardCaixa .supDivSelect{
     gap: 16px;
 }
-
+.dashboardCaixa .chartContainer{
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+}
 .dashboardCaixa .supDivSelect select,
 .dashboardCaixa .periodoDash select{
     width: 150px;
