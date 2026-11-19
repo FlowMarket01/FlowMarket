@@ -15,115 +15,158 @@
   </head>
   <body class="dashboardCaixa">
       <header class="cabecaLhoDash">
-      <a href="..\index.html">
-        <div onclick="" class="molduraLogo" href="./pages/login.html">
-          <img src="../img/iconCart.png" alt="iconCart" />
+
+    <a href="../index.html">
+        <div class="molduraLogo">
+            <img src="../img/iconCart.png" alt="Logo FlowMarket">
         </div>
-      </a>
-        <div class="cabecalhoButtonBar">
-          <a href="dashboardCaixa.html" class="ButtonSelecionado cabecalhoButton verdeclaro">
-            <img src="..\img\PessoasImg.svg" alt="Corredor">
-          </a>
-          <a href="dashboardCorredor.html" class=" cabecalhoButton branco">
-            <img src="..\img\CorredorImg.svg" alt="Corredor">
-          </a>
-          <a href="registros.html" class="cabecalhoButton branco">
-            <img src="..\img\RelatórioImg.svg" alt="Corredor">
-          </a>
-        </div>
-      
-      <div class="center">
-        <img onclick="perfil()" class="perfilImg" src="..\img\Perfil.png" alt="Perfil">
+    </a>
+
+    <div class="cabecalhoButtonBar">
+
+        <a href="dashboardCaixa.html" class="ButtonSelecionado cabecalhoButton verdeclaro">
+            <img src="../img/PessoasImg.svg" alt="Caixas">
+        </a>
+
+        <a href="dashboardCorredor.html" class="cabecalhoButton branco">
+            <img src="../img/CorredorImg.svg" alt="Corredor">
+        </a>
+
+        <a href="registros.html" class="cabecalhoButton branco">
+            <img src="../img/RelatórioImg.svg" alt="Registros">
+        </a>
+
+    </div>
+
+    <div class="center">
+        <img onclick="perfil()" class="perfilImg" src="../img/Perfil.png" alt="Perfil">
+
         <div id="user_info" class="user_info closed">
-          <button onclick="perfil()" class="close"> X </button>
-      </div>
-      </div>
-      
-    </header>
-    <main class="mainDash">
+            <button onclick="perfil()" class="close">X</button>
+        </div>
+    </div>
+
+</header>
+<main class="mainDash">
+
+  <!-- Cabeçalho da dashboard -->
+  <div class="topoDash">
+
+    <div class="tituloDash">
       <h1 id="tituloPeriodo">Filas dos caixas - últimas 24 horas</h1>
+
       <p>
         Mercado Caramico - leituras dos sensores ultrassônicos das zonas de fila
-        - dados de demonstração
       </p>
-      <div class="periodoDash">
-        <label for="sltPeriodo">Período:</label>
-        <select id="sltPeriodo" name="periodo">
-          <option value="1">24 horas</option>
-          <option value="3">3 dias</option>
-          <option value="7">7 dias</option>
+    </div>
+    <div class="alerta_kpiDiv" id="alertaCritico">
+      <div class="alertaIcone">!</div>
+
+      <div class="alertaInfo">
+        <span class="alertaLabel">Fila em estado crítico:</span>
+        <strong>Caixa 3</strong>
+      </div>
+
+      <div class="alertaInfo">
+        <span class="alertaLabel">Início:</span>
+        <strong>13h20</strong>
+      </div>
+
+      <a href="#sltCaixas">
+        <button onclick="redirecionar()" class="alertaBotao">
+          Visualizar
+        </button>
+      </a>
+    </div>
+   
+
+  </div>
+  <section class="sectionKpis">
+
+    <div class="kpisDiv" id="cardKpi_FilasCaixas">
+
+      <div class="cardKpi" id="cardKpi_CaixasFilaCheiaAgora">
+        <h3 id="h3_caixasFilaCheiaAgora">
+          Caixas com fila cheia agora
+        </h3>
+
+        <h1 id="h1_caixasFilaCheiaAgora">2 de 5</h1>
+        <div class="AlertaElevado">
+          <p>Caixa(s) com maior tempo de estado cheio: caixa 5, caixa 6</p>
+        </div>
+      </div>
+
+      <div class="cardKpi" id="cardKpi_tempoTotalFilaCheia">
+        <h3 id="h3_tempoTotalFilaCheia">
+          Tempo total em fila cheia nas últimas 24 horas
+        </h3>
+        <h1 id="h1_tempoTotalFilaCheia">5h 21min</h1>
+        <div class="AlertaElevado">
+          <p>75% dos consumidores aceitam esperar até 15 minutos nas filas</p>
+        </div>
+      </div>
+
+      <div class="cardKpi" id="cardKpi_terceiraKPI">
+        <h3> 
+          Impacto estimado no almento das filas: 
+        </h3>
+        <h1>
+          R$ 6,91
+        </h1>
+        <div class="AlertaElevado">
+            <p>gerando uma perda na incidência de compra em 10%</p>
+          </div>
+  </div>
+    </div>
+  </section>
+
+  <!-- Área dos gráficos -->
+  <section id="sectionGraficoCaixa" class="sectionDash">
+
+    <div id="cardCaixaMaiorTempo" class="divCard">
+      <h1>Caixas com maior tempo em fila cheia</h1>
+
+      <p id="descricaoCaixaTempo">
+        Minutos acumulados no estado "cheio" nas últimas 24h.
+      </p>
+
+      <div class="chartContainer">
+        <canvas
+          id="graficoBarraCaixaMaiorTempo"
+          class="canvasGrafico"
+          aria-label="Gráfico de barras de caixas com maior tempo em fila cheia"
+        ></canvas>
+      </div>
+    </div>
+
+    <div id="cardCaixaPicoOcupacao" class="divCard">
+      <h1>Pico de ocupação por caixa</h1>
+
+      <div id="supCaixaPicoOcupacao" class="supDivSelect">
+
+        <p id="descricaoCaixaOcupacao">
+          Estado da fila por hora - vazio, moderado ou cheio. Escolha o
+          caixa para atualizar.
+        </p>
+
+        <select name="caixa" id="sltCaixas">
+          <!-- opções geradas por JavaScript -->
         </select>
-
-        <!-- <div class="alerta_kpiDiv" id="alerta crítico" >
-            <div class="alertaIcone">!</div>
-
-            <div class="alertaInfo">
-              <span class="alertaLabel">Fila em estado crítico:</span>
-              <strong>Caixa 3</strong>
-            </div>
-
-            <div class="alertaInfo">
-                <span class="alertaLabel">Início:</span>
-                <strong>13h20</strong>
-            </div>
-            <a href="#sltCaixas"><button onclick="redirecionar()" class="alertaBotao">Visualizar</button></a>
-        </div> -->
 
       </div>
 
+      <div class="chartContainer">
+        <canvas
+          id="graficoLinhaCaixaPicoOcupacao"
+          class="canvasGrafico"
+          aria-label="Gráfico de linha do pico de ocupação por caixa"
+        ></canvas>
+      </div>
+    </div>
 
-      <section class="sectionKpis">
-  <!--       <h1 class="titulo_kpiDiv">FILAS DOS CAIXAS</h1> -->
-        <div class="kpisDiv" id="cardKpi_FilasCaixas">
-          <div class="cardKpi" id="cardKpi_CaixasFilaCheiaAgora">
-            <h3 id="h3_caixasFilaCheiaAgora">Caixas com fila cheia agora</h3>
-            <h1 id="h1_caixasFilaCheiaAgora">2 de 5</h1>
-          </div>
-          <div class="cardKpi" id="cardKpi_tempoTotalFilaCheia">
-            <h3 id="h3_tempoTotalFilaCheia">
-              Tempo total em fila cheia nas últimas 24 horas
-            </h3>
-            <h1 id="h1_tempoTotalFilaCheia">5h 21min</h1>
-          </div>
-        </div>
-      </section>
+  </section>
 
-      <section id="sectionGraficoCaixa" class="sectionDash">
-        <div id="cardCaixaMaiorTempo" class="divCard">
-          <h1>Caixas com maior tempo em fila cheia</h1>
-          <p id="descricaoCaixaTempo">
-            Minutos acumulados no estado "cheio" nas últimas 24h.
-          </p>
-          <div class="chartContainer">
-            <canvas
-              id="graficoBarraCaixaMaiorTempo"
-              class="canvasGrafico"
-              aria-label="Gráfico de barras de caixas com maior tempo em fila cheia"
-            ></canvas>
-          </div>
-        </div>
-
-        <div id="cardCaixaPicoOcupacao" class="divCard">
-          <h1>Pico de ocupação por caixa</h1>
-          <div id="supCaixaPicoOcupacao" class="supDivSelect">
-            <p id="descricaoCaixaOcupacao">
-              Estado da fila por hora - vazio, moderado ou cheio. Escolha o
-              caixa para atualizar.
-            </p>
-            <select name="caixa" id="sltCaixas">
-              <!-- opções geradas por JavaScript -->
-            </select>
-          </div>
-          <div class="chartContainer">
-            <canvas
-              id="graficoLinhaCaixaPicoOcupacao"
-              class="canvasGrafico"
-              aria-label="Gráfico de linha do pico de ocupação por caixa"
-            ></canvas>
-          </div>
-        </div>
-      </section>
-    </main>
+</main>
 
     <script>
       user_info.innerHTML += `Nome: <br> <label class="dado"> ${sessionStorage.NOME_USUARIO} </label> <br> Email: <br> <label class="dado"> ${sessionStorage.EMAIL_USUARIO} </label> <br> Telefone: <br> <label class="dado"> ${sessionStorage.TELEFONE_USUARIO} <br> <br> </label> <button class="sair" onclick="limparSessao()"> SAIR </button>` 
