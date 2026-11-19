@@ -8,7 +8,6 @@
 }
 html{
     font-size: 65.5%;
-    zoom: 0.83;
 }
 
 body{
@@ -504,5 +503,329 @@ body{
         width: 64px;
         height: 58px;
         min-height: 48px;
+    }
+}
+
+/* Layout responsivo da dashboard de caixas */
+.dashboardCaixa .cabecaLhoDash{
+    width: 76px;
+    padding: 16px 10px;
+}
+
+.dashboardCaixa .cabecalhoButtonBar{
+    gap: 28px;
+}
+
+.dashboardCaixa .cabecalhoButton{
+    width: 52px;
+    min-width: 52px;
+    max-width: 52px;
+    height: 52px;
+    padding: 12px;
+}
+
+.dashboardCaixa .mainDash{
+    width: calc(100% - 76px);
+    height: 100vh;
+    min-height: 0;
+    margin-left: 76px;
+    padding: 24px clamp(18px, 3vw, 40px);
+    grid-template-columns: minmax(230px, 0.8fr) minmax(0, 2fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas:
+        "topo topo"
+        "kpis graficos";
+    align-content: stretch;
+    column-gap: clamp(18px, 2.5vw, 32px);
+    row-gap: 22px;
+}
+
+.dashboardCaixa .topoDash{
+    justify-content: space-between;
+    gap: 24px;
+    min-width: 0;
+}
+
+.dashboardCaixa .tituloDash{
+    min-width: 0;
+}
+
+.dashboardCaixa .tituloDash h1{
+    font-size: clamp(2.4rem, 3vw, 3.6rem);
+    line-height: 1.2;
+}
+
+.dashboardCaixa .tituloDash p{
+    margin-top: 6px;
+    font-size: 1.4rem;
+}
+
+.dashboardCaixa .alerta_kpiDiv{
+    position: static;
+    flex-shrink: 0;
+    gap: 16px;
+    margin: 0;
+    padding: 10px 14px;
+}
+
+.dashboardCaixa .alertaInfo{
+    align-items: flex-start;
+}
+
+.dashboardCaixa .kpisDiv{
+    height: 100%;
+    align-items: stretch;
+    justify-content: center;
+    gap: 14px;
+}
+
+.dashboardCaixa .sectionKpis{
+    min-height: 0;
+}
+
+.dashboardCaixa .cardKpi{
+    max-width: none;
+    min-height: 128px;
+    height: auto;
+    padding: 14px;
+}
+
+.dashboardCaixa .cardKpi h3{
+    font-size: 1.35rem;
+    line-height: 1.4;
+}
+
+.dashboardCaixa .cardKpi h1{
+    font-size: 2.4rem;
+    line-height: 1.3;
+}
+
+.dashboardCaixa .cardKpi p{
+    margin-top: 8px;
+    font-size: 1.05rem;
+    line-height: 1.4;
+}
+
+.dashboardCaixa .sectionDash{
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    gap: 18px;
+    justify-content: center;
+}
+
+.dashboardCaixa .divCard{
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: 270px;
+    flex: 1 1 0;
+    padding: 18px;
+    gap: 10px;
+}
+
+.dashboardCaixa .divCard h1{
+    font-size: 1.8rem;
+    line-height: 1.35;
+}
+
+.dashboardCaixa .divCard p{
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+.dashboardCaixa .supDivSelect{
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.dashboardCaixa .supDivSelect select{
+    width: 140px;
+}
+
+.dashboardCaixa .chartContainer{
+    width: 100%;
+}
+
+@media (max-width: 1050px){
+    .dashboardCaixa .mainDash{
+        grid-template-columns: minmax(200px, 0.75fr) minmax(0, 1.7fr);
+        padding-inline: 22px;
+    }
+
+    .dashboardCaixa .topoDash{
+        align-items: flex-start;
+    }
+
+    .dashboardCaixa .alerta_kpiDiv{
+        gap: 10px;
+    }
+}
+
+@media (max-width: 760px){
+    .dashboardCaixa .cabecaLhoDash{
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: 64px;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 8px 16px;
+    }
+
+    .dashboardCaixa .cabecaLhoDash .molduraLogo img{
+        width: 36px;
+        height: 42px;
+    }
+
+    .dashboardCaixa .cabecalhoButtonBar{
+        flex-direction: row;
+        gap: 12px;
+        margin: 0;
+    }
+
+    .dashboardCaixa .cabecalhoButton{
+        width: 44px;
+        min-width: 44px;
+        max-width: 44px;
+        height: 44px;
+        padding: 10px;
+    }
+
+    .dashboardCaixa .center{
+        margin-left: 0;
+    }
+
+    .dashboardCaixa .perfilImg{
+        width: 36px;
+        height: 36px;
+    }
+
+    .dashboardCaixa .user_info{
+        position: fixed;
+        top: 64px;
+        right: 0;
+        bottom: auto;
+        left: auto;
+        max-width: min(90vw, 320px);
+        border-radius: 0 0 0 10px;
+        box-shadow: 0 8px 20px #00000030;
+    }
+
+    .dashboardCaixa .open{
+        left: auto;
+    }
+
+    .dashboardCaixa .mainDash{
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        margin-left: 0;
+        padding: 22px 18px 30px;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "topo"
+            "kpis"
+            "graficos";
+        gap: 20px;
+    }
+
+    .dashboardCaixa .topoDash{
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .dashboardCaixa .alerta_kpiDiv{
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .dashboardCaixa .sectionKpis,
+    .dashboardCaixa .sectionDash{
+        width: 100%;
+    }
+
+    .dashboardCaixa .kpisDiv{
+        height: auto;
+        gap: 12px;
+    }
+
+    .dashboardCaixa .cardKpi{
+        min-height: 0;
+    }
+
+    .dashboardCaixa .divCard{
+        height: 300px;
+        max-height: none;
+        flex: 0 0 auto;
+    }
+}
+
+@media (max-width: 480px){
+    .dashboardCaixa .cabecaLhoDash{
+        padding-inline: 10px;
+    }
+
+    .dashboardCaixa .cabecalhoButtonBar{
+        gap: 8px;
+    }
+
+    .dashboardCaixa .cabecalhoButton{
+        width: 40px;
+        min-width: 40px;
+        max-width: 40px;
+        height: 40px;
+        padding: 9px;
+    }
+
+    .dashboardCaixa .mainDash{
+        padding: 18px 12px 24px;
+    }
+
+    .dashboardCaixa .tituloDash h1{
+        font-size: 2.4rem;
+    }
+
+    .dashboardCaixa .alerta_kpiDiv{
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .dashboardCaixa .alertaIcone{
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+    }
+
+    .dashboardCaixa .alertaLabel{
+        font-size: 1.1rem;
+    }
+
+    .dashboardCaixa .alertaInfo strong{
+        font-size: 1.4rem;
+    }
+
+    .dashboardCaixa .alertaBotao{
+        padding: 6px 10px;
+        font-size: 1.2rem;
+    }
+
+    .dashboardCaixa .cardKpi{
+        padding: 12px;
+    }
+
+    .dashboardCaixa .divCard{
+        height: 280px;
+        padding: 14px;
+    }
+
+    .dashboardCaixa .supDivSelect{
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .dashboardCaixa .supDivSelect select{
+        width: 100%;
     }
 }
