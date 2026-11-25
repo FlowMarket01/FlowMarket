@@ -458,7 +458,58 @@
         }
       }
 
-      
+      document.getElementById("supportForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const form = event.currentTarget;
+        const formData = new FormData(form);
+        const nome = formData.get("nome").trim();
+        const email = formData.get("email").trim();
+        const assuntoSelect = form.elements.assunto;
+        const assunto = assuntoSelect.options[assuntoSelect.selectedIndex].text;
+        const descricao = formData.get("descricao").trim();
+        const mensagem = document.getElementById("supportMessage");
+        const botao = form.querySelector(".submitButton");
+
+        mensagem.hidden = true;
+        mensagem.classList.remove("error");
+        botao.disabled = true;
+        botao.textContent = "Enviando...";
+
+        try {
+          const resposta = await fetch("/serviceDesk", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              summary: `${assunto} - ${nome}`,
+              description: `Solicitante: ${nome}\nAssunto: ${assunto}\n\n${descricao}`,
+              email: email,
+            }),
+          });
+          const resultado = await resposta.json();
+
+          if (!resposta.ok) {
+            const detalhes = resultado.details
+              ? ` ${JSON.stringify(resultado.details)}`
+              : "";
+            throw new Error(
+              (resultado.message || "Não foi possível registrar o chamado.") + detalhes,
+            );
+          }
+
+          mensagem.textContent =
+            `Chamado registrado com sucesso${resultado.ticket?.key ? ` (${resultado.ticket.key})` : ""}.`;
+          mensagem.hidden = false;
+          form.reset();
+        } catch (erro) {
+          mensagem.textContent = `Erro ao registrar o chamado: ${erro.message}`;
+          mensagem.classList.add("error");
+          mensagem.hidden = false;
+        } finally {
+          botao.disabled = false;
+          botao.textContent = "Registrar chamado";
+        }
+      });
     </script>
   </body>
 </html>
