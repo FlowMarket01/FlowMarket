@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function buscarDados(usuarioId, dias) {
+async function buscarDados(usuarioId, dias) {
     var inicioPeriodo = "DATE_SUB(NOW(), INTERVAL " + dias + " DAY)";
     var mercadoSql = `
         SELECT idMercado AS id, Nome_mercado AS nome
@@ -81,32 +81,26 @@ function buscarDados(usuarioId, dias) {
         ORDER BY estadoFila.inicio;
     `;
 
-    // Executa as consultas em paralelo; a posição de cada resultado corresponde
-    // à ordem das consultas abaixo.
-    return Promise.all([
-        database.executar(mercadoSql, [usuarioId]),
-        database.executar(resumoSql, [usuarioId]),
-        database.executar(rankingSql, [usuarioId]),
-        database.executar(filasAtivasSql, [usuarioId]),
-        database.executar(historicoSql, [usuarioId])
-    ]).then(function (resultados) {
-        // Organiza os resultados no formato consumido pela API do dashboard.
-        return {
-            // Cada consulta SELECT retorna uma lista; a primeira linha contém o mercado.
-            mercado: resultados[0][0] || null,
-            dias: dias,
-            // A consulta agregada pode não retornar linha caso não existam caixas.
-            resumo: resultados[1][0] || {
-                totalCaixas: 0,
-                caixasFilaCheiaAgora: 0,
-                minutosFilaCheia: 0
-            },
-            // Ranking, filas ainda abertas e estados registrados no período.
-            ranking: resultados[2],
-            filasAtivas: resultados[3],
-            historico: resultados[4]
-        };
-    });
+    // O await espera cada consulta terminar antes de iniciar a próxima.
+    var mercado = await database.executar(mercadoSql, [usuarioId]);
+    var resumo = await database.executar(resumoSql, [usuarioId]);
+    var ranking = await database.executar(rankingSql, [usuarioId]);
+    var filasAtivas = await database.executar(filasAtivasSql, [usuarioId]);
+    var historico = await database.executar(historicoSql, [usuarioId]);
+
+    // Organiza os resultados no formato consumido pela API do dashboard.
+    return {
+        mercado: mercado[0] || null,
+        dias: dias,
+        resumo: resumo[0] || {
+            totalCaixas: 0,
+            caixasFilaCheiaAgora: 0,
+            minutosFilaCheia: 0
+        },
+        ranking: ranking,
+        filasAtivas: filasAtivas,
+        historico: historico
+    };
 }
 
 module.exports = {
