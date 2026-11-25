@@ -39,6 +39,7 @@
     </div>
 
     <div class="center">
+        <img onclick="suporteForm()" class="suporteIcone" src="../img/headset.png" alt="suporte">
         <img onclick="perfil()" class="perfilImg" src="../img/Perfil.png" alt="Perfil">
 
         <div id="user_info" class="user_info closed">
@@ -167,6 +168,44 @@
   </section>
 
 </main>
+
+    <div id="supportCover" class="cover" onclick="fecharCover(event)">
+      <form id="supportForm" class="formSuporte">
+        <div class="formHeader">
+          <h1>Canal de contato</h1>
+          <p>Canal para comunicação de possíveis falhas, dúvidas e observações</p>
+        </div>
+
+        <div class="campoForm">
+          <label for="nomeCompleto">Nome completo</label>
+          <input id="nomeCompleto" name="nome" type="text" autocomplete="nome" required placeholder="Digite seu nome completo"/>
+        </div>
+
+        <div class="campoForm">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required placeholder="Digite seu e-mail"/>
+        </div>
+
+        <div class="campoForm">
+          <label for="assunto">Assunto</label>
+          <select id="assunto" name="assunto" required>
+            <option value="" selected disabled>Selecione uma opção</option>
+            <option value="falha">Relatar uma falha</option>
+            <option value="duvida">Dúvida</option>
+            <option value="sugestao">Sugestão</option>
+            <option value="outro">Outro assunto</option>
+          </select>
+        </div>
+
+        <div class="campoForm">
+          <label for="description">Descrição</label>
+        </div>
+        <textarea id="description" name="descricao" placeholder="Descreva mais sobre..."></textarea>
+
+        <p id="supportMessage" class="supportMessage" role="status" aria-live="polite" hidden></p>
+        <button class="submitButton" type="submit">Registrar chamado</button>
+      </form>
+    </div>
 
     <script>
       user_info.innerHTML += `Nome: <br> <label class="dado"> ${sessionStorage.NOME_USUARIO} </label> <br> Email: <br> <label class="dado"> ${sessionStorage.EMAIL_USUARIO} </label> <br> Telefone: <br> <label class="dado"> ${sessionStorage.TELEFONE_USUARIO} <br> <br> </label> <button class="sair" onclick="limparSessao()"> SAIR </button>` 
@@ -401,13 +440,25 @@
         tempoTotalFilaCheia(caixasRanking, dias);
       }
 
-      sltPeriodo.addEventListener("change", atualizarPeriodo);
+      // sltPeriodo.addEventListener("change", atualizarPeriodo);
       
       function redirecionar() {
         sltCaixas.value='Caixa 3';
         atualizarPeriodo() 
 
       }
+
+      function suporteForm(){
+        document.getElementById("supportCover").style.display = "flex";
+      }
+
+      function fecharCover(event){
+        if (event.target === event.currentTarget) {
+          document.getElementById("supportCover").style.display = "none";
+        }
+      }
+
+      
     </script>
   </body>
 </html>
