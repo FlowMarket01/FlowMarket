@@ -81,6 +81,8 @@ function buscarDados(usuarioId, dias) {
         ORDER BY estadoFila.inicio;
     `;
 
+    // Executa as consultas em paralelo; a posição de cada resultado corresponde
+    // à ordem das consultas abaixo.
     return Promise.all([
         database.executar(mercadoSql, [usuarioId]),
         database.executar(resumoSql, [usuarioId]),
@@ -88,14 +90,18 @@ function buscarDados(usuarioId, dias) {
         database.executar(filasAtivasSql, [usuarioId]),
         database.executar(historicoSql, [usuarioId])
     ]).then(function (resultados) {
+        // Organiza os resultados no formato consumido pela API do dashboard.
         return {
+            // Cada consulta SELECT retorna uma lista; a primeira linha contém o mercado.
             mercado: resultados[0][0] || null,
             dias: dias,
+            // A consulta agregada pode não retornar linha caso não existam caixas.
             resumo: resultados[1][0] || {
                 totalCaixas: 0,
                 caixasFilaCheiaAgora: 0,
                 minutosFilaCheia: 0
             },
+            // Ranking, filas ainda abertas e estados registrados no período.
             ranking: resultados[2],
             filasAtivas: resultados[3],
             historico: resultados[4]
