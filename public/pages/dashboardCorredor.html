@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlowMarket</title>
+    <link rel="stylesheet" href="../css/styleDash.css" />
+    <script>
+    //   if (!sessionStorage.ID_USUARIO) {
+    //     window.location.replace("login.html");
+    //   }
+    // </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/sessao.js"></script>
+  </head>
+  <body>
+    <header class="cabecaLhoDash">
+      <a href="..\index.html">
+        <div onclick="" class="molduraLogo" href="./pages/login.html">
+          <img src="../img/iconCart.png" alt="iconCart" />
+        </div>
+      </a>
+        <div class="cabecalhoButtonBar">
+          <a href="dashboardCaixa.html"  class="cabecalhoButton branco">
+            <img src="..\img\PessoasImg.svg" alt="Corredor">
+          </a>
+          <a href="dashboardCorredor.html" class="ButtonSelecionado cabecalhoButton verdeclaro">
+            <img src="..\img\CorredorImg.svg" alt="Corredor">
+          </a>
+          <a href="registros.html" class="cabecalhoButton branco">
+            <img src="..\img\RelatórioImg.svg" alt="Corredor">
+          </a>
+        </div>
+
+      <div class="center">
+        <img onclick="perfil()" class="perfilImg" src="..\img\Perfil.png" alt="Perfil">
+        <div id="user_info" class="user_info closed">
+          <button onclick="perfil()" class="close"> X </button>
+      </div>
+    </header>
+
+    <main class="mainDash">
+      
+      <h1 id="tituloPeriodo">Fluxo nos corredores - últimas 24 horas</h1>
+      <p>
+        Mercado Caramico - leituras dos sensores ultrassônicos dos corredores -
+        dados de demonstração
+      </p>
+      <div class="periodoDash">
+        <label for="sltPeriodo">Período:</label>
+        <select id="sltPeriodo" name="periodo">
+          <option value="1">24 horas</option>
+          <option value="3">3 dias</option>
+          <option value="7">7 dias</option>
+        </select>
+      </div>
+
+      <section class="sectionKpis">
+        <div class="kpisDiv">
+          
+          <div class="cardKpi" id="cardKpi_CorredorAcionamento">
+
+            <h3 id="h3_CorredorAcionamento">Acionamentos total nos corredores nas últimas 24 horas</h3>
+            <h1 id="h1_acionamentoTotal">teste teste</h1>
+
+          </div>
+
+          <div class="cardKpi" id="cardKpi_CorredorMaisMovimentado">
+
+            <h3 id="h3_CorredorMaisMovimentado">Corredor mais movimentado nas últimas 24 horas</h3>
+            <h1 id="h1_corredorMaisMovimento">teste teste</h1>
+
+          </div>
+
+          <div class="cardKpi" id="cardKpi_horarioPicoCorredor">
+
+            <h3 id="h3_horarioPicoCorredor">Horário de pico dos corredores nas últimas 24 horas</h3>
+            <h1 id="h1_horarioPicoCorredor">11h</h1>
+
+          </div>
+        </div>
+
+      </section>
+
+      <section id="sectionGraficoCorredor" class="sectionDash">
+        <div id="cardCorredorMaiorFluxo" class="divCard">
+          <h1>Corredores com maior fluxo</h1>
+          <p id="descricaoCorredorFluxo">
+            Ativações de presença nas últimas 24 h - soma dos dois sensores de
+            acesso de cada corredor.
+          </p>
+
+          <div class="chartContainer">
+            <canvas
+              id="graficoBarraCorredorMaiorFluxo"
+              aria-label="grafico de Barra de Corredor com Maior Fluxo"
+            ></canvas>
+          </div>
+        </div>
+
+        <div id="cardCorredorPicoFluxo" class="divCard">
+          <h1>Pico de fluxo por corredor</h1>
+          <div id="supCorredorPicoFluxo" class="supDivSelect">
+            <p id="descricaoCorredorPico">
+              Ativações por hora nas últimas 24 h. Escolha o corredor para
+              atualizar.
+            </p>
+            <select name="" id="sltCorredores">
+              <!--gerar option com js-->
+            </select>
+          </div>
+          <div class="chartContainer">
+            <canvas
+              id="graficoLinhaCorredorPicoFluxo"
+              class="canvasGrafico"
+              aria-label="grafico de Linha de Corredor em Pico de Fluxo"
+            ></canvas>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <script>
+      user_info.innerHTML += `Nome: <br> <label class="dado"> ${sessionStorage.NOME_USUARIO} </label> <br> Email: <br> <label class="dado"> ${sessionStorage.EMAIL_USUARIO} </label> <br> Telefone: <br> <label class="dado"> ${sessionStorage.TELEFONE_USUARIO} <br> <br> </label> <button class="sair" onclick="limparSessao()"> SAIR </button>` 
+
+      function perfil(){
+        let painel = document.getElementById("user_info")
+        if (painel.className == "user_info closed"){
+          painel.className = "user_info open"
+        }
+        else{
+          painel.className = "user_info closed"
+        }
+      }
+      let corredoresRanking = [
+        { identificacao: "Corredor 1", pontuacao: 1482 },
+        { identificacao: "Corredor 2", pontuacao: 1244 },
+        { identificacao: "Corredor 3", pontuacao: 986 },
+        { identificacao: "Corredor 4", pontuacao: 742 },
+        { identificacao: "Hortifrúti", pontuacao: 655 },
+        { identificacao: "Padaria", pontuacao: 438 },
+      ];
+
+      let corredorSeries = {
+        "Corredor 1": [
+          3, 1, 1, 0, 1, 4, 19, 42, 66, 85, 105, 130, 119, 96, 78, 77, 85, 100,
+          116, 127, 107, 70, 39, 11,
+        ],
+        "Corredor 2": [
+          3, 1, 1, 0, 1, 3, 16, 35, 55, 71, 88, 109, 100, 81, 66, 65, 71, 84,
+          97, 107, 90, 59, 33, 8,
+        ],
+        "Corredor 3": [
+          2, 1, 0, 0, 1, 3, 13, 28, 44, 57, 70, 86, 79, 64, 52, 51, 57, 66, 77,
+          84, 71, 47, 26, 7,
+        ],
+        "Corredor 4": [
+          1, 1, 0, 0, 1, 2, 10, 21, 33, 42, 52, 65, 60, 48, 39, 39, 42, 50, 58,
+          63, 54, 35, 20, 6,
+        ],
+        Hortifrúti: [
+          1, 1, 0, 0, 1, 2, 8, 18, 29, 37, 46, 57, 52, 42, 34, 34, 37, 44, 51,
+          56, 47, 31, 17, 10,
+        ],
+        Padaria: [
+          1, 0, 0, 0, 1, 3, 15, 26, 22, 29, 30, 31, 27, 22, 19, 20, 23, 28, 34,
+          41, 27, 21, 12, 6,
+        ],
+      };
+
+      let horas = [];
+      for (let h = 0; h < 24; h++) horas.push(String(h).padStart(2, "0") + "h");
+
+      function gerarRotulosPeriodo(dias) {
+        if (dias == 1) return horas;
+
+        let data = new Date();
+        data.setHours(0, 0, 0, 0);
+        data.setDate(data.getDate() - dias + 1);
+
+        let rotulos = [];
+        for (let dia = 0; dia < dias; dia++) {
+          for (let hora = 0; hora < 24; hora++) {
+            rotulos.push(
+              String(data.getDate()).padStart(2, "0") +
+                "/" +
+                String(data.getMonth() + 1).padStart(2, "0") +
+                " " +
+                String(hora).padStart(2, "0") +
+                "h",
+            );
+          }
+          data.setDate(data.getDate() + 1);
+        }
+        return rotulos;
+      }
+
+      function repetirSerieDiaria(serie, dias) {
+        let dados = [];
+        for (let dia = 0; dia < dias; dia++) dados.push(...serie);
+        return dados;
+      }
+
+      let tooltipMarca = {
+        backgroundColor: "#0F4C3A",
+        titleFont: { family: "'Poppins', sans-serif", weight: 600, size: 12 },
+        bodyFont: { family: "'Poppins', sans-serif", weight: 400, size: 12 },
+        padding: 10,
+        cornerRadius: 8,
+        displayColors: false,
+      };
+
+      let escalaContagem = {
+        beginAtZero: true,
+        ticks: { precision: 0 },
+        grid: { color: "rgba(15, 76, 58, 0.08)" },
+        border: { display: false },
+      };
+
+      let escalaCategorica = {
+        grid: { display: false },
+        border: { display: false },
+      };
+
+      function acionamentoTotalCorredores(corredoresRanking, dia = 1){
+        let total = 0
+        for(let i = 0; i < corredoresRanking.length; i++ ){
+          total += corredoresRanking[i].pontuacao
+        }
+
+        
+        h1_acionamentoTotal.textContent = `${total * dia}`
+      }
+
+      function corredorMaisMovimentado(corredoresRanking, dia = 1){
+        let maior = corredoresRanking[0].pontuacao
+        let index = 0
+        for(let i = 0; i < corredoresRanking.length; i++){
+          if(maior < corredoresRanking[i].pontuacao){
+            maior = corredoresRanking[i].pontuacao
+            index = i
+          }
+        }
+
+        h1_corredorMaisMovimento.textContent = corredoresRanking[index].identificacao
+      }
+
+      function obterHorarioPico(dias = 1) {
+        let totaisPorHora = [];
+        for (let i = 0; i < 24; i++) {
+          totaisPorHora.push(0);
+        }
+
+        for (let nomeCorredor in corredorSeries) {
+          let serie = corredorSeries[nomeCorredor];
+
+          for (let dia = 0; dia < dias; dia++) {
+            for (let hora = 0; hora < 24; hora++) {
+              totaisPorHora[hora] = totaisPorHora[hora] + serie[hora];
+            }
+          }
+        }
+
+        // descobre qual foi o maior valor
+        let maiorTotal = totaisPorHora[0];
+        for (let i = 1; i < 24; i++) {
+          if (totaisPorHora[i] > maiorTotal) {
+            maiorTotal = totaisPorHora[i];
+          }
+        }
+
+        // procura o primeiro horário que tem o maior valor e ja retorna
+        for (let i = 0; i < 24; i++) {
+          if (totaisPorHora[i] == maiorTotal) {
+            return horas[i];   // retorna o primeiro e para a funcao
+          }
+        }
+      }
+
+      window.onload = function () {
+        let cont = 0;
+        while (cont < corredoresRanking.length) {
+          sltCorredores.innerHTML += `<option value="${corredoresRanking[cont].identificacao}">${corredoresRanking[cont].identificacao}</option>`;
+          cont++;
+        }
+
+        acionamentoTotalCorredores(corredoresRanking)
+        corredorMaisMovimentado(corredoresRanking)
+        h1_horarioPicoCorredor.textContent = obterHorarioPico()
+      };
+
+      let graficoBarraCorredor = new Chart(graficoBarraCorredorMaiorFluxo, {
+        type: "bar",
+        data: {
+          labels: corredoresRanking.map(function (c) {
+            return c.identificacao;
+          }),
+          datasets: [
+            {
+              data: corredoresRanking.map(function (c) {
+                return c.pontuacao;
+              }),
+              backgroundColor: "#6AAE48",
+              borderRadius: { topLeft: 6, topRight: 6 },
+              maxBarThickness: 42,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: tooltipMarca,
+          },
+          scales: { x: escalaCategorica, y: escalaContagem },
+        },
+      });
+
+      let graficoLinhaCorredor = new Chart(graficoLinhaCorredorPicoFluxo, {
+        type: "line",
+        data: {
+          labels: horas,
+          datasets: [
+            {
+              data: corredorSeries[corredoresRanking[0].identificacao],
+              borderWidth: 1,
+              backgroundColor: "#6AAE48",
+              tension: 0.5,
+              borderColor: "#6AAE48",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: tooltipMarca,
+          },
+        },
+      });
+
+      sltCorredores.addEventListener("change", function () {
+        graficoLinhaCorredor.data.datasets[0].data = repetirSerieDiaria(
+          corredorSeries[sltCorredores.value],
+          Number(sltPeriodo.value),
+        );
+        graficoLinhaCorredor.update();
+      });
+
+      function atualizarPeriodo() {
+        let dias = Number(sltPeriodo.value);
+        let textoPeriodo =
+          dias === 1 ? "últimas 24 horas" : "últimos " + dias + " dias";
+        let periodoComPreposicao =
+          dias === 1 ? "nas últimas 24 horas" : "nos últimos " + dias + " dias";
+        let rotulos = gerarRotulosPeriodo(dias);
+
+        tituloPeriodo.textContent = "Fluxo nos corredores - " + textoPeriodo;
+        descricaoCorredorFluxo.textContent =
+          "Ativações de presença " +
+          periodoComPreposicao +
+          " - soma dos dois sensores de acesso de cada corredor.";
+
+        descricaoCorredorPico.textContent =
+          "Ativações por hora " +
+          periodoComPreposicao +
+          ". Escolha o corredor para atualizar.";
+
+        h3_CorredorAcionamento.textContent = "Acionamentos total nos corredores " + periodoComPreposicao
+        h3_CorredorMaisMovimentado.textContent = "Corredor mais movimentado " + periodoComPreposicao
+        h3_horarioPicoCorredor.textContent = "Horário de pico dos corredores " + periodoComPreposicao
+        h1_horarioPicoCorredor.textContent = obterHorarioPico(dias)
+
+        graficoBarraCorredor.data.datasets[0].data = corredoresRanking.map(
+          function (corredor) {
+            return corredor.pontuacao * dias;
+          },
+        );
+        graficoLinhaCorredor.data.labels = rotulos;
+        graficoLinhaCorredor.data.datasets[0].data = repetirSerieDiaria(
+          corredorSeries[
+            sltCorredores.value || corredoresRanking[0].identificacao
+          ],
+          dias,
+        );
+        graficoBarraCorredor.update();
+        graficoLinhaCorredor.update();
+        acionamentoTotalCorredores(corredoresRanking, dias)
+        
+      }
+
+      sltPeriodo.addEventListener("change", atualizarPeriodo);
+    </script>
+  </body>
+</html>
