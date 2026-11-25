@@ -254,8 +254,237 @@ body{
     flex-shrink: 0;
 }
 
+.cover {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.534);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
 
+.suporteIcone{
+    width: 45px;
+}
 
+.formSuporte{
+    background-color: white;
+    width: 45vw;
+    min-height: 60vh;
+    padding: 30px 50px;
+    color: #0F4C3A;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transform: scale(0.95);
+    animation: surgir 0.3s ease forwards;
+}
+
+@keyframes surgir {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.formHeader{
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.formHeader h1{
+    font-size: 2.5rem;
+}
+
+.formHeader p{
+    /* border: 2px solid red; */
+    font-weight: 400;
+    color: #8b8b8b;
+    font-size: 1.6rem;
+}
+
+.campoForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.campoForm label{
+    font-size: 1.6rem;
+}
+
+.campoForm input,
+.campoForm select {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 0px rgb(200, 200, 200);
+    font-size: 1.6rem;
+}
+
+#description{
+    width: 100%;
+    min-height: 175px;
+    padding: 13px 16px;
+    border: 1px solid #ccc;
+    border-radius: 13px;
+    resize: vertical;
+    outline: none;
+    box-shadow: 2px 2px 4px 0px rgb(200, 200, 200);
+    font-size: 1.6rem;
+}
+
+.campoForm input:focus,
+.campoForm select:focus,
+#description:focus {
+    outline: none;
+}
+
+.submitButton{
+    align-self: center;
+    width: 100%;
+    min-height: 50px;
+    border: none;
+    border-radius: 13px;
+    background: #0F513F;
+    color: #FFFFFF;
+    font: inherit;
+    font-size: 1.6rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px 0px rgb(200, 200, 200);
+    transition: background 160ms ease, transform 160ms ease;
+}
+
+.submitButton:hover {
+    background: #0B3D30;
+}
+
+.submitButton:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+.supportMessage {
+    color: #0F4C3A;
+    font-size: 1.4rem;
+}
+
+.supportMessage.error {
+    color: #8D0000;
+}
+
+.submitButton:active {
+    transform: translateY(1px);
+}
+
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.user_info{
+    z-index: 2;
+    box-shadow:0 -40px 0px 0#0F4C3A, 15px 5px 25px -20px #00000073;
+    width:max-content;
+    position: absolute;
+    flex-direction: column;
+    bottom: 3px;
+    font-size: 1.6rem;
+    font-weight: bold;
+
+    padding: 20px;
+    border-radius: 0px 10px 10px 0px;
+    background-color: #FFFFFF;
+    color: #0F4C3A;
+
+    transition-property: display left;
+    transition-duration: 0.5s;
+    transition-behavior: allow-discrete;
+}
+
+.user_info .close{
+    font-size: 1.8rem;
+    top: -35px;
+    left: 180px;
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    color: #F4F7F5;
+    font-weight: bolder;
+}
+
+.user_info .close:hover{
+    cursor: pointer;
+}
+
+.closed{
+    display: none;
+    opacity: 0;
+    left: 0;
+
+    @starting-style{
+        left: 96px;
+        opacity: 1;
+    }
+}
+
+.open{
+    display: flex;
+    left: 96px;
+    opacity: 1;
+
+    @starting-style{
+        left: 0;
+        opacity: 0;
+    }
+}
+
+.user_info .dado{
+    font-size: 1.4rem;
+    font-weight: normal;
+    color: #797979;
+}
+
+.perfilImg:hover{
+    cursor: pointer;
+}
+
+.sair{
+    border: none;
+    border-radius: 3px;
+    color: #F4F7F5;
+    font-weight: bold;
+    background-color: #0F4C3A;
+}
+
+.sair:hover{
+    background-color: #6AAE48;
+    cursor: pointer;
+}
+
+.cabecaLhoDash > div:last-child {
+    justify-self: flex-end;
+    margin-top: auto;
+}
+
+.cabecalhoButtonBar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 70px;
+
+    margin-top: auto;
+}
 
 
 
