@@ -219,67 +219,72 @@
           painel.className = "user_info closed"
         }
       }
-
-      let caixasRanking = [
-        { identificacao: "Caixa 1", minutosEmCheio: 96 },
-        { identificacao: "Caixa 2", minutosEmCheio: 141 },
-        { identificacao: "Caixa 3", minutosEmCheio: 48 },
-        { identificacao: "Caixa 4", minutosEmCheio: 24 },
-        { identificacao: "Caixa 5", minutosEmCheio: 12 },
-      ];
-
-      let caixaSeries = {
-        "Caixa 1": [
-          0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 0,
-        ],
-        "Caixa 2": [
-          0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1,
-        ],
-        "Caixa 3": [
-          0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,3, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 0,
-        ],
-        "Caixa 4": [
-          0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 0,
-        ],
-        "Caixa 5": [
-          0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0,
-        ],
+const MAPA_NIVEL = {
+        vazio: 0,
+        leve: 1,
+        moderado: 2,
+        cheio: 3,
       };
 
       let estadosFila = ["Vazio", "Leve", "Moderado", "Cheio"];
-      let horas = [];
-      for (let h = 0; h < 24; h++) horas.push(String(h).padStart(2, "0") + "h");
+      let caixasRanking = [];
+      let caixaSeries = {};
 
-      function gerarRotulosPeriodo(dias) {
-        if (dias == 1) return horas;
+     
+      function gerarJanela24Horas() {
+        const horaAtual = new Date();
+        horaAtual.setMinutes(0, 0, 0);
 
-        let data = new Date();
-        data.setHours(0, 0, 0, 0);
-        data.setDate(data.getDate() - dias + 1);
+        const inicioJanela = new Date(horaAtual.getTime() - 23 * 3600000);
+        const rotulos = [];
+        const timestampsSlots = [];
 
-        let rotulos = [];
-        for (let dia = 0; dia < dias; dia++) {
-          for (let hora = 0; hora < 24; hora++) {
-            rotulos.push(
-              String(data.getDate()).padStart(2, "0") +
-                "/" +
-                String(data.getMonth() + 1).padStart(2, "0") +
-                " " +
-                String(hora).padStart(2, "0") +
-                "h",
-            );
-          }
-          data.setDate(data.getDate() + 1);
+        for (let i = 0; i < 24; i++) {
+          const slot = new Date(inicioJanela.getTime() + i * 3600000);
+          timestampsSlots.push(slot.getTime());
+          rotulos.push(String(slot.getHours()).padStart(2, "0") + "h");
         }
-        return rotulos;
+
+        return { rotulos, timestampsSlots };
       }
 
-      function repetirSerieDiaria(serie, dias) {
-        let dados = [];
-        for (let dia = 0; dia < dias; dia++) dados.push(...serie);
-        return dados;
+    
+      function montarSeriesPorHora(ranking, historico, timestampsSlots) {
+        const series = {};
+        const agoraMs = Date.now();
+
+        for (let i = 0; i < ranking.length; i++) {
+          series[ranking[i].identificacao] = new Array(24).fill(0);
+        }
+
+        for (let i = 0; i < historico.length; i++) {
+          const registro = historico[i];
+          const nomeCaixa = registro.identificacao;
+
+          if (!series[nomeCaixa]) {
+            series[nomeCaixa] = new Array(24).fill(0);
+          }
+
+          const nivelNumerico = MAPA_NIVEL[registro.nivel?.toLowerCase()] || 0;
+          const inicioEvento = new Date(registro.inicio).getTime();
+          const fimEvento = registro.fim ? new Date(registro.fim).getTime() : agoraMs;
+
+          for (let s = 0; s < 24; s++) {
+            const inicioSlot = timestampsSlots[s];
+            const fimSlot = inicioSlot + 3600000;
+
+            if (inicioEvento < fimSlot && fimEvento > inicioSlot) {
+              if (nivelNumerico > series[nomeCaixa][s]) {
+                series[nomeCaixa][s] = nivelNumerico;
+              }
+            }
+          }
+        }
+
+        return series;
       }
 
+   
       let tooltipMarca = {
         backgroundColor: "#0F4C3A",
         titleFont: { family: "'Poppins', sans-serif", weight: 600, size: 12 },
@@ -301,41 +306,13 @@
         border: { display: false },
       };
 
-      function tempoTotalFilaCheia(caixasRanking, dia = 1) {
-        let total = 0;
-        for (let i = 0; i < caixasRanking.length; i++) {
-          total += caixasRanking[i].minutosEmCheio;
-        }
-
-        let minutosTotais = total * dia;
-        let horasTotais = Math.floor(minutosTotais / 60);
-        let minutosRestantes = minutosTotais % 60;
-        h1_tempoTotalFilaCheia.textContent =
-          `${horasTotais}h ${String(minutosRestantes).padStart(2, "0")}min`;
-      }
-
-      window.onload = function () {
-        let cont = 0;
-        while (cont < caixasRanking.length) {
-          sltCaixas.innerHTML +=
-            `<option value="${caixasRanking[cont].identificacao}">${caixasRanking[cont].identificacao}</option>`;
-          cont++;
-        }
-
-        tempoTotalFilaCheia(caixasRanking);
-      };
-
       let graficoBarraCaixa = new Chart(graficoBarraCaixaMaiorTempo, {
         type: "bar",
         data: {
-          labels: caixasRanking.map(function (c) {
-            return c.identificacao;
-          }),
+          labels: [],
           datasets: [
             {
-              data: caixasRanking.map(function (c) {
-                return c.minutosEmCheio;
-              }),
+              data: [],
               backgroundColor: "#0F4C3A",
               borderRadius: { topLeft: 6, topRight: 6 },
               maxBarThickness: 42,
@@ -356,10 +333,10 @@
       let graficoLinhaCaixa = new Chart(graficoLinhaCaixaPicoOcupacao, {
         type: "line",
         data: {
-          labels: horas,
+          labels: [],
           datasets: [
             {
-              data: caixaSeries[caixasRanking[0].identificacao],
+              data: [],
               borderColor: "#6AAE48",
               backgroundColor: "rgba(106, 174, 72, 0.10)",
               borderWidth: 2,
@@ -399,117 +376,70 @@
         },
       });
 
-      sltCaixas.addEventListener("change", function () {
-        graficoLinhaCaixa.data.datasets[0].data = repetirSerieDiaria(
-          caixaSeries[sltCaixas.value],
-          Number(sltPeriodo.value),
-        );
-        graficoLinhaCaixa.update();
-      });
-
-      function atualizarPeriodo() {
-        let dias = Number(sltPeriodo.value);
-        let textoPeriodo =
-          dias === 1 ? "últimas 24 horas" : "últimos " + dias + " dias";
-        let periodoComPreposicao =
-          dias === 1 ? "nas últimas 24 horas" : "nos últimos " + dias + " dias";
-        let rotulos = gerarRotulosPeriodo(dias);
-
-        tituloPeriodo.textContent = "Filas dos caixas - " + textoPeriodo;
-        descricaoCaixaTempo.textContent =
-          'Minutos acumulados no estado "cheio" ' + periodoComPreposicao + ".";
-        descricaoCaixaOcupacao.textContent =
-          "Estado da fila por hora - vazio, moderado ou cheio, " +
-          periodoComPreposicao +
-          ". Escolha o caixa para atualizar.";
-        h3_tempoTotalFilaCheia.textContent =
-          "Tempo total em fila cheia " + periodoComPreposicao;
-
-        graficoBarraCaixa.data.datasets[0].data = caixasRanking.map(
-          function (caixa) {
-            return caixa.minutosEmCheio * dias;
-          },
-        );
-        graficoLinhaCaixa.data.labels = rotulos;
-        graficoLinhaCaixa.data.datasets[0].data = repetirSerieDiaria(
-          caixaSeries[sltCaixas.value || caixasRanking[0].identificacao],
-          dias,
-        );
-        graficoBarraCaixa.update();
-        graficoLinhaCaixa.update();
-        tempoTotalFilaCheia(caixasRanking, dias);
-      }
-
-      // sltPeriodo.addEventListener("change", atualizarPeriodo);
-      
-      function redirecionar() {
-        sltCaixas.value='Caixa 3';
-        atualizarPeriodo() 
-
-      }
-
-      function suporteForm(){
-        document.getElementById("supportCover").style.display = "flex";
-      }
-
-      function fecharCover(event){
-        if (event.target === event.currentTarget) {
-          document.getElementById("supportCover").style.display = "none";
-        }
-      }
-
-      document.getElementById("supportForm").addEventListener("submit", async function (event) {
-        event.preventDefault();
-
-        const form = event.currentTarget;
-        const formData = new FormData(form);
-        const nome = formData.get("nome").trim();
-        const email = formData.get("email").trim();
-        const assuntoSelect = form.elements.assunto;
-        const assunto = assuntoSelect.options[assuntoSelect.selectedIndex].text;
-        const descricao = formData.get("descricao").trim();
-        const mensagem = document.getElementById("supportMessage");
-        const botao = form.querySelector(".submitButton");
-
-        mensagem.hidden = true;
-        mensagem.classList.remove("error");
-        botao.disabled = true;
-        botao.textContent = "Enviando...";
+      /*COLOCA OS DADOS NA DASH */
+      async function carregarDashboard() {
+        const usuarioId = sessionStorage.ID_USUARIO || 1;
 
         try {
-          const resposta = await fetch("/serviceDesk", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              summary: `${assunto} - ${nome}`,
-              description: `Solicitante: ${nome}\nAssunto: ${assunto}\n\n${descricao}`,
-              email: email,
-            }),
-          });
-          const resultado = await resposta.json();
+          const resposta = await fetch(`/dashboard/caixas/dados?usuarioId=${usuarioId}`);
 
           if (!resposta.ok) {
-            const detalhes = resultado.details
-              ? ` ${JSON.stringify(resultado.details)}`
-              : "";
-            throw new Error(
-              (resultado.message || "Não foi possível registrar o chamado.") + detalhes,
-            );
+            throw new Error(`Erro HTTP ${resposta.status} ao buscar dados dos caixas.`);
           }
 
-          mensagem.textContent =
-            `Chamado registrado com sucesso${resultado.ticket?.key ? ` (${resultado.ticket.key})` : ""}.`;
-          mensagem.hidden = false;
-          form.reset();
+          const dados = await resposta.json();
+          caixasRanking = dados.ranking || [];
+
+          const caixaAnterior = sltCaixas.value;
+          sltCaixas.innerHTML = "";
+          for (let i = 0; i < caixasRanking.length; i++) {
+            const nome = caixasRanking[i].identificacao;
+            sltCaixas.innerHTML += `<option value="${nome}">${nome}</option>`;
+          }
+          if (caixaAnterior && caixasRanking.some((c) => c.identificacao === caixaAnterior)) {
+            sltCaixas.value = caixaAnterior;
+          }
+
+          const { rotulos, timestampsSlots } = gerarJanela24Horas();
+          caixaSeries = montarSeriesPorHora(caixasRanking, dados.historico || [], timestampsSlots);
+
+          graficoBarraCaixa.data.labels = caixasRanking.map((c) => c.identificacao);
+          graficoBarraCaixa.data.datasets[0].data = caixasRanking.map((c) =>
+            Number(c.minutosFilaCheia)
+          );
+          graficoBarraCaixa.update();
+
+          const caixaSelecionado = sltCaixas.value || caixasRanking[0]?.identificacao;
+          graficoLinhaCaixa.data.labels = rotulos;
+          graficoLinhaCaixa.data.datasets[0].data = caixaSeries[caixaSelecionado] || [];
+          graficoLinhaCaixa.update();
+
+          const minutosTotais = Math.round(Number(dados.resumo?.minutosFilaCheia || 0));
+          const horasTotais = Math.floor(minutosTotais / 60);
+          const minutosRestantes = minutosTotais % 60;
+          h1_tempoTotalFilaCheia.textContent =
+            `${horasTotais}h ${String(minutosRestantes).padStart(2, "0")}min`;
         } catch (erro) {
-          mensagem.textContent = `Erro ao registrar o chamado: ${erro.message}`;
-          mensagem.classList.add("error");
-          mensagem.hidden = false;
-        } finally {
-          botao.disabled = false;
-          botao.textContent = "Registrar chamado";
+          console.error("Falha ao alimentar dashboard de caixas:", erro);
         }
+      }
+      /*wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww*/
+      sltCaixas.addEventListener("change", function () {
+        graficoLinhaCaixa.data.datasets[0].data = caixaSeries[sltCaixas.value] || [];
+        graficoLinhaCaixa.update();
       });
+
+      function redirecionar() {
+        sltCaixas.value = "Caixa 3";
+        graficoLinhaCaixa.data.datasets[0].data = caixaSeries["Caixa 3"] || [];
+        graficoLinhaCaixa.update();
+      }
+
+      window.onload = carregarDashboard;
+      
+    </script>
+  </body>
+</html>
     </script>
   </body>
 </html>
