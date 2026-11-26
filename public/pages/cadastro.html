@@ -305,8 +305,6 @@
                 }
 
                 console.log(dados_cadastro)
-                //localStorage.setItem('dados_cadastro', JSON.stringify(dados_cadastro))
-                //console.log(localStorage.getItem('dados_cadastro'))
 
                 fetch("/usuarios/cadastrar", {
                     method: "POST",
@@ -328,6 +326,7 @@
                             alert("Cadastro realizado com sucesso! Redirecionando para cadastro da sua empresa...");
                             sessionStorage.EMAIL_USUARIO = dados_cadastro.email;
                             sessionStorage.SENHA_USUARIO = dados_cadastro.senha;
+
                             window.location.href = 'cadastro-mercado.html';
 
                         } else {
