@@ -297,4 +297,52 @@
         }
       });
 
+
+      function atualizar_registros(){
+            let registros_box = document.getElementById('tela1');
+            registros_box.innerHTML = "";
+
+                fetch("/alerta/alertas", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        // crie um atributo que recebe o valor recuperado aqui
+                        // Agora vá para o arquivo routes/usuario.js
+                        idServer: 1
+                    }),
+                })
+                    .then(function (resposta) {
+                        if (resposta.ok) {
+                            resposta.json().then(json => {
+                                for(let i = 0; i < json.length; i++){
+                                    let caixa = json[i].descricao;
+                                    let duracao = json[i].duracao;
+                                    let data = new Date(json[i].data);
+                                    console.log(data.getDate())
+                                    let data_formatada = (data.getDate()) + '/' + (data.getMonth());
+                                    
+                                    registros_box.innerHTML += `
+                            <div class="conteinerDisposto01">
+                                <div class="colunaCaixa">${caixa}</div>
+                                <div class="colunaInicio">${duracao} min</div>
+                                <div class="colunaData">${data_formatada}</div>
+                                <div class="colunaStatus">
+                                <div class="blocosdeStatusRegistro statusCritico"> Cheio </div>
+                            </div>
+                            </div>`
+                                }
+                            })
+                        } else {
+                            console.log('ERRO!')
+                        }
+                    })
+                    .catch(function (resposta) {
+                        console.log(`#ERRO: ${resposta}`);
+                    });
+                
+            }
+
+            atualizar_registros();
 </script>
