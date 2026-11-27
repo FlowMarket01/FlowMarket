@@ -46,13 +46,13 @@
 
 
         <div class="center">
-        <img onclick="suporteForm()" class="suporteIcone" src="../img/headset.png" alt="suporte">
-        <img onclick="perfil()" class="perfilImg" src="../img/Perfil.png" alt="Perfil">
+            <img onclick="suporteForm()" class="suporteIcone" src="../img/headset.png" alt="suporte">
+            <img onclick="perfil()" class="perfilImg" src="../img/Perfil.png" alt="Perfil">
 
-        <div id="user_info" class="user_info closed">
-            <button onclick="perfil()" class="close">X</button>
+            <div id="user_info" class="user_info closed">
+                <button onclick="perfil()" class="close">X</button>
+            </div>
         </div>
-    </div>
     </header>
 
 
@@ -67,27 +67,27 @@
             </div>
         </div>
 
-    <section class="sectionKpis">
-    <div class="kpisDiv" id="cardKpi_FilasCaixas">
-        <div class="cardKpi" id="cardKpi_MediaDiaria">
-            <h3>Média diária de ocupação crítica</h3>
-            <h1 id="kpi_mediaDiariaValor">--</h1>
-            <h3>Média de tempo no nível cheio por dia</h3>
-        </div>
+        <section class="sectionKpis">
+            <div class="kpisDiv" id="cardKpi_FilasCaixas">
+                <div class="cardKpi" id="cardKpi_MediaDiaria">
+                    <h3>Média diária de ocupação crítica</h3>
+                    <h1 id="kpi_mediaDiariaValor">--</h1>
+                    <h3>Média de tempo no nível cheio por dia</h3>
+                </div>
 
-        <div class="cardKpi" id="cardKpi_CaixaMaisCheio">
-            <h3>Caixa mais cheio</h3>
-            <h1 id="kpi_caixaMaisCheioNome">--</h1>
-            <h3 id="kpi_caixaMaisCheioDias">-- dias com registros de estado cheio</h3>
-        </div>
+                <div class="cardKpi" id="cardKpi_CaixaMaisCheio">
+                    <h3>Caixa mais cheio</h3>
+                    <h1 id="kpi_caixaMaisCheioNome">--</h1>
+                    <h3 id="kpi_caixaMaisCheioDias">-- dias com registros de estado cheio</h3>
+                </div>
 
-        <div class="cardKpi" id="cardKpi_TempoTotal">
-            <h3>Tempo em estado cheio</h3>
-            <h1 id="kpi_tempoTotalValor">--</h1>
-            <h3>Acumulado no período</h3>
-        </div>
-    </div>
-</section>
+                <div class="cardKpi" id="cardKpi_TempoTotal">
+                    <h3>Tempo em estado cheio</h3>
+                    <h1 id="kpi_tempoTotalValor">--</h1>
+                    <h3>Acumulado no período</h3>
+                </div>
+            </div>
+        </section>
 
         <section id="sectionGraficoCaixa" class="sectionDash">
             <div id="cardCaixaPicoOcupacao" class="divCard">
@@ -104,77 +104,78 @@
                 </div>
             </div>
 
-                 <div id="cardCaixaPicoOcupacao" class="divCard">
-                <h1>Victor Mansur</h1>
+            <div id="cardCaixaPicoOcupacao" class="divCard">
+                <h1>Tempo total por estado da fila</h1>
                 <div id="supCaixaPicoOcupacao" class="supDivSelect">
                     <p id="descricaoCaixaOcupacao">
-                        Monitoramento diário por dia do mês em porcentagem (%)
+                        Comparativo entre níveis de fila do caixa em (%)
                     </p>
 
                 </div>
                 <div class="chartContainer">
-                    <canvas id="graficoLinhaCaixaCopPicoOcupacao" class="canvasGrafico"
-                        aria-label="Gráfico de linha do pico de ocupação por caixa"></canvas>
+                    <canvas id="graficoPizzaGeral" class="canvasGrafico" aria-label="Gráfico de pizza"></canvas>
                 </div>
             </div>
 
         </section>
 
-        
 
-        
+
+
     </main>
     </section>
-   <div id="supportCover" class="cover" onclick="fecharCover(event)">
-      <form id="supportForm" class="formSuporte">
-        <div class="formHeader">
-          <h1>Canal de contato</h1>
-          <p>Canal para comunicação de possíveis falhas, dúvidas e observações</p>
-        </div>
+    <div id="supportCover" class="cover" onclick="fecharCover(event)">
+        <form id="supportForm" class="formSuporte">
+            <div class="formHeader">
+                <h1>Canal de contato</h1>
+                <p>Canal para comunicação de possíveis falhas, dúvidas e observações</p>
+            </div>
 
-        <div class="campoForm">
-          <label for="nomeCompleto">Nome completo</label>
-          <input id="nomeCompleto" name="nome" type="text" autocomplete="nome" required placeholder="Digite seu nome completo"/>
-        </div>
+            <div class="campoForm">
+                <label for="nomeCompleto">Nome completo</label>
+                <input id="nomeCompleto" name="nome" type="text" autocomplete="nome" required
+                    placeholder="Digite seu nome completo" />
+            </div>
 
-        <div class="campoForm">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" autocomplete="email" required placeholder="Digite seu e-mail"/>
-        </div>
+            <div class="campoForm">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required
+                    placeholder="Digite seu e-mail" />
+            </div>
 
-        <div class="campoForm">
-          <label for="assunto">Assunto</label>
-          <select id="assunto" name="assunto" required>
-            <option value="" selected disabled>Selecione uma opção</option>
-            <option value="falha">Relatar uma falha</option>
-            <option value="duvida">Dúvida</option>
-            <option value="sugestao">Sugestão</option>
-            <option value="outro">Outro assunto</option>
-          </select>
-        </div>
+            <div class="campoForm">
+                <label for="assunto">Assunto</label>
+                <select id="assunto" name="assunto" required>
+                    <option value="" selected disabled>Selecione uma opção</option>
+                    <option value="falha">Relatar uma falha</option>
+                    <option value="duvida">Dúvida</option>
+                    <option value="sugestao">Sugestão</option>
+                    <option value="outro">Outro assunto</option>
+                </select>
+            </div>
 
-        <div class="campoForm">
-          <label for="description">Descrição</label>
-        </div>
-        <textarea id="description" name="descricao" placeholder="Descreva mais sobre..."></textarea>
+            <div class="campoForm">
+                <label for="description">Descrição</label>
+            </div>
+            <textarea id="description" name="descricao" placeholder="Descreva mais sobre..."></textarea>
 
-        <p id="supportMessage" class="supportMessage" role="status" aria-live="polite" hidden></p>
-        <button class="submitButton" type="submit">Registrar chamado</button>
-      </form>
+            <p id="supportMessage" class="supportMessage" role="status" aria-live="polite" hidden></p>
+            <button class="submitButton" type="submit">Registrar chamado</button>
+        </form>
     </div>
 
     <script>
-        user_info.innerHTML += `Nome: <br> <label class="dado"> ${sessionStorage.NOME_USUARIO} </label> <br> Email: <br> <label class="dado"> ${sessionStorage.EMAIL_USUARIO} </label> <br> Telefone: <br> <label class="dado"> ${sessionStorage.TELEFONE_USUARIO} <br> <br> </label> <button class="sair" onclick="limparSessao()"> SAIR </button>` 
+        user_info.innerHTML += `Nome: <br> <label class="dado"> ${sessionStorage.NOME_USUARIO} </label> <br> Email: <br> <label class="dado"> ${sessionStorage.EMAIL_USUARIO} </label> <br> Telefone: <br> <label class="dado"> ${sessionStorage.TELEFONE_USUARIO} <br> <br> </label> <button class="sair" onclick="limparSessao()"> SAIR </button>`
 
-        function perfil(){
-        let painel = document.getElementById("user_info")
-        if (painel.className == "user_info closed"){
-          painel.className = "user_info open"
+        function perfil() {
+            let painel = document.getElementById("user_info")
+            if (painel.className == "user_info closed") {
+                painel.className = "user_info open"
+            }
+            else {
+                painel.className = "user_info closed"
+            }
         }
-        else{
-          painel.className = "user_info closed"
-        }
-      }
 
         let caixasRanking = [
             { identificacao: "Caixa 1", minutosEmCheio: 906 },
@@ -187,19 +188,19 @@
 
         let caixaSeries = {
             "Caixa 1": [
-                1200, 80, 0, 45, 900, 180, 360, 100, 90, 111, 101, 200, 30, 908, 0, 70, 90, 50, 200, 120, 100, 40, 30, 100, 88, 33, 33, 60, 20,100
+                1200, 80, 0, 45, 900, 180, 360, 100, 90, 111, 101, 200, 30, 908, 0, 70, 90, 50, 200, 120, 100, 40, 30, 100, 88, 33, 33, 60, 20, 100
             ],
             "Caixa 2": [
-                200, 30, 908, 1000, 70, 180, 360, 100, 90, 111, 101, 120, 80, 0, 45, 900, 90, 50, 200, 120, 100, 40, 30, 100, 88, 33, 33, 60, 20,100
+                200, 30, 908, 1000, 70, 180, 360, 100, 90, 111, 101, 120, 80, 0, 45, 900, 90, 50, 200, 120, 100, 40, 30, 100, 88, 33, 33, 60, 20, 100
             ],
             "Caixa 3": [
-                120, 80, 0, 45, 900, 180, 360, 100, 90, 111, 101, 200, 30, 908, 0, 70, 90, 50, 200, 120, 100, 40, 30, 100, 88, 33, 33, 60, 20,100
+                120, 80, 0, 45, 900, 180, 360, 100, 90, 111, 101, 200, 30, 908, 0, 70, 90, 50, 200, 120, 100, 40, 30, 100, 88, 33, 33, 60, 20, 100
             ],
             "Caixa 4": [
-                120, 80, 0, 45, 900, 180, 360, 100, 90, 111, 101, 200, 30, 908, 0, 70, 90, 50, 200, 120, 100, 40, 30, 100, 88, 33, 33, 60, 20,200
+                120, 80, 0, 45, 900, 180, 360, 100, 90, 111, 101, 200, 30, 908, 0, 70, 90, 50, 200, 120, 100, 40, 30, 100, 88, 33, 33, 60, 20, 200
             ],
             "Caixa 5": [
-                120, 80, 0, 45, 900, 180, 360, 100, 90, 111, 101, 200, 30, 908, 0, 70, 90, 50, 200, 200, 30, 908, 0, 70, 180, 1400, 100, 90, 111,300
+                120, 80, 0, 45, 900, 180, 360, 100, 90, 111, 101, 200, 30, 908, 0, 70, 90, 50, 200, 200, 30, 908, 0, 70, 180, 1400, 100, 90, 111, 300
             ],
         };
         function percentualFilaCheia() {
@@ -341,128 +342,134 @@
                     },
                 },
             },
-        });
+        }
+
+        );
 
 
 
 
-        // grafico duplicado só pra ter ideia de espaço
 
 
-         let graficoLinhaCaixaCop = new Chart(graficoLinhaCaixaCopPicoOcupacao, {
-            type: "line",
+
+        let graficoPizza = new Chart(graficoPizzaGeral, {
+            type: "pie",
             data: {
-                labels: gerarRotulosPeriodo(30), // eixo X: 00h..23h
+                labels: ['Leve', 'Moderado', 'Cheio'],
                 datasets: [
                     {
                         // começa mostrando o primeiro caixa
-                        data: percentualFilaCheia(),
-                        borderColor: "#6AAE48",
-                        backgroundColor: "rgba(106, 174, 72, 0.10)",
-                        borderWidth: 2,
-                        fill: true, // pinta a área abaixo da linha
-                        // linha em "degraus" (estado muda de uma vez, não gradualmente)
-                        // esconde as bolinhas...
-                        pointHitRadius: 12, // ...mas mantém área de hover generosa
+                        data: [30, 20, 50],
+                        backgroundColor: [
+                            "#B5D5A5",
+                            "#FFE082",
+                            "#E18181"
+                        ],
+
+                        borderColor: [
+                            "#6AAE48",
+                            "#F2B900",
+                            "#D00000"
+                        ],
+
+                        borderWidth: 3,
+                        offset: 4
                     },
                 ],
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+
                 plugins: {
-                    legend: { display: false },
-                    // Object.assign copia tooltipMarca e ACRESCENTA o callback do texto
+                    legend: {
+                        display: true,
+                        position: 'right',
+                        align: 'end',
+
+                        labels: {
+                            usePointStyle: false,
+                            boxWidth: 20,
+                            padding: 10
+                        }
+                    },
+
                     tooltip: Object.assign({}, tooltipMarca, {
                         callbacks: {
-                            // contexto.parsed.y é o número (0..3) -> vira texto via estadosFila
                             label: function (contexto) {
-                                return contexto.parsed.y.toFixed(1) + "%";
-                            },
-                        },
-                    }),
-                },
-                scales: {
-                    x: escalaCategorica,
-                    y: {
-                        min: 0,
-                        max: 100,
-                        ticks: {
-                            // troca os números do eixo Y pelos nomes dos estados
-                            callback: function (valor) {
-                                return [valor] + "%";
-                            },
-                        },
-                        border: { display: false },
-                    },
-                },
-            },
+                                return contexto.label + ': ' +
+                                    contexto.raw.toFixed(1) + '%';
+                            }
+                        }
+                    })
+                }
+            }
         });
 
 
 
-         function suporteForm(){
-        document.getElementById("supportCover").style.display = "flex";
-      }
-
-      function fecharCover(event){
-        if (event.target === event.currentTarget) {
-          document.getElementById("supportCover").style.display = "none";
+        function suporteForm() {
+            document.getElementById("supportCover").style.display = "flex";
         }
-      }
 
-      document.getElementById("supportForm").addEventListener("submit", async function (event) {
-        event.preventDefault();
-
-        const form = event.currentTarget;
-        const formData = new FormData(form);
-        const nome = formData.get("nome").trim();
-        const email = formData.get("email").trim();
-        const assuntoSelect = form.elements.assunto;
-        const assunto = assuntoSelect.options[assuntoSelect.selectedIndex].text;
-        const descricao = formData.get("descricao").trim();
-        const mensagem = document.getElementById("supportMessage");
-        const botao = form.querySelector(".submitButton");
-
-        mensagem.hidden = true;
-        mensagem.classList.remove("error");
-        botao.disabled = true;
-        botao.textContent = "Enviando...";
-
-        try {
-          const resposta = await fetch("/serviceDesk", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              summary: `${assunto} - ${nome}`,
-              description: `Solicitante: ${nome}\nAssunto: ${assunto}\n\n${descricao}`,
-              email: email,
-            }),
-          });
-          const resultado = await resposta.json();
-
-          if (!resposta.ok) {
-            const detalhes = resultado.details
-              ? ` ${JSON.stringify(resultado.details)}`
-              : "";
-            throw new Error(
-              (resultado.message || "Não foi possível registrar o chamado.") + detalhes,
-            );
-          }
-
-          mensagem.textContent =
-            `Chamado registrado com sucesso${resultado.ticket?.key ? ` (${resultado.ticket.key})` : ""}.`;
-          mensagem.hidden = false;
-          form.reset();
-        } catch (erro) {
-          mensagem.textContent = `Erro ao registrar o chamado: ${erro.message}`;
-          mensagem.classList.add("error");
-          mensagem.hidden = false;
-        } finally {
-          botao.disabled = false;
-          botao.textContent = "Registrar chamado";
+        function fecharCover(event) {
+            if (event.target === event.currentTarget) {
+                document.getElementById("supportCover").style.display = "none";
+            }
         }
-      });
+
+        document.getElementById("supportForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const form = event.currentTarget;
+            const formData = new FormData(form);
+            const nome = formData.get("nome").trim();
+            const email = formData.get("email").trim();
+            const assuntoSelect = form.elements.assunto;
+            const assunto = assuntoSelect.options[assuntoSelect.selectedIndex].text;
+            const descricao = formData.get("descricao").trim();
+            const mensagem = document.getElementById("supportMessage");
+            const botao = form.querySelector(".submitButton");
+
+            mensagem.hidden = true;
+            mensagem.classList.remove("error");
+            botao.disabled = true;
+            botao.textContent = "Enviando...";
+
+            try {
+                const resposta = await fetch("/serviceDesk", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        summary: `${assunto} - ${nome}`,
+                        description: `Solicitante: ${nome}\nAssunto: ${assunto}\n\n${descricao}`,
+                        email: email,
+                    }),
+                });
+                const resultado = await resposta.json();
+
+                if (!resposta.ok) {
+                    const detalhes = resultado.details
+                        ? ` ${JSON.stringify(resultado.details)}`
+                        : "";
+                    throw new Error(
+                        (resultado.message || "Não foi possível registrar o chamado.") + detalhes,
+                    );
+                }
+
+                mensagem.textContent =
+                    `Chamado registrado com sucesso${resultado.ticket?.key ? ` (${resultado.ticket.key})` : ""}.`;
+                mensagem.hidden = false;
+                form.reset();
+            } catch (erro) {
+                mensagem.textContent = `Erro ao registrar o chamado: ${erro.message}`;
+                mensagem.classList.add("error");
+                mensagem.hidden = false;
+            } finally {
+                botao.disabled = false;
+                botao.textContent = "Registrar chamado";
+            }
+        });
 
 
     </script>
