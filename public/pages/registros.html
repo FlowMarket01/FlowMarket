@@ -49,16 +49,6 @@
             <!-- Descrição da página -->
             <h6>Mercado Caramico - registros de alerta de caixas com filas em estado crítico</h6>
 
-            <!-- Seleção da unidade -->
-            <div class="periodoDash">
-                <label>Unidade:</label>
-
-                <select id="selectUnidade" onchange="telas()">
-                    <option value="1">Unidade 1</option>
-                    <option value="2">Unidade 2</option>
-                </select>
-            </div>
-
             <!-- Painel principal dos registros -->
             <div class="configConteiners">
                 <div class="conteinerPrincipalRegistros">
@@ -114,48 +104,6 @@
                             </div>
                         </div>
                     </div>
-                    <div id="tela2" class="configDosconteinersRegistro">
-
-                        <!-- Registro 5 -->
-                        <div class="conteinerDisposto01">
-                            <div class="colunaCaixa">Caixa 2</div>
-                            <div class="colunaInicio">09 min</div>
-                            <div class="colunaData">01/out</div>
-                            <div class="colunaStatus">
-                                <div class="blocosdeStatusRegistro statusModerado">Moderado</div>
-                            </div>
-                        </div>
-
-                        <!-- Registro 6 -->
-                        <div class="conteinerDisposto01">
-                            <div class="colunaCaixa">Caixa 7</div>
-                            <div class="colunaInicio">12 min</div>
-                            <div class="colunaData">29/set</div>
-                            <div class="colunaStatus">
-                                <div class="blocosdeStatusRegistro statusModerado">Moderado</div>
-                            </div>
-                        </div>
-
-                        <!-- Registro 7 -->
-                        <div class="conteinerDisposto01">
-                            <div class="colunaCaixa">Caixa 6</div>
-                            <div class="colunaInicio">14 min</div>
-                            <div class="colunaData">28/set</div>
-                            <div class="colunaStatus">
-                                <div class="blocosdeStatusRegistro statusCritico">Cheio</div>
-                            </div>
-                        </div>
-
-                        <!-- Registro 8 -->
-                        <div class="conteinerDisposto01">
-                            <div class="colunaCaixa">Caixa 8</div>
-                            <div class="colunaInicio">11 min</div>
-                            <div class="colunaData">28/set</div>
-                            <div class="colunaStatus">
-                                <div class="blocosdeStatusRegistro statusModerado">Moderado</div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -215,24 +163,6 @@
         }
     }
 
-    telas()
-
-    function telas() {
-        let recursos = document.getElementById("selectUnidade").value;
-
-        let tela1 = document.getElementById("tela1");
-        let tela2 = document.getElementById("tela2");
-
-        if (recursos == "1") {
-            tela1.style.display = "flex";
-            tela2.style.display = "none";
-        }
-
-        if (recursos == "2") {
-            tela1.style.display = "none";
-            tela2.style.display = "flex";
-        }
-    }
 
      function suporteForm(){
         document.getElementById("supportCover").style.display = "flex";
@@ -297,4 +227,52 @@
         }
       });
 
+
+      function atualizar_registros(){
+            let registros_box = document.getElementById('tela1');
+            registros_box.innerHTML = "";
+
+                fetch("/alerta/alertas", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        // crie um atributo que recebe o valor recuperado aqui
+                        // Agora vá para o arquivo routes/usuario.js
+                        idServer: 1
+                    }),
+                })
+                    .then(function (resposta) {
+                        if (resposta.ok) {
+                            resposta.json().then(json => {
+                                for(let i = 0; i < json.length; i++){
+                                    let caixa = json[i].descricao;
+                                    let duracao = json[i].duracao;
+                                    let data = new Date(json[i].data);
+                                    console.log(data.getDate())
+                                    let data_formatada = (data.getDate()) + '/' + (data.getMonth());
+                                    
+                                    registros_box.innerHTML += `
+                            <div class="conteinerDisposto01">
+                                <div class="colunaCaixa">${caixa}</div>
+                                <div class="colunaInicio">${duracao} min</div>
+                                <div class="colunaData">${data_formatada}</div>
+                                <div class="colunaStatus">
+                                <div class="blocosdeStatusRegistro statusCritico"> Cheio </div>
+                            </div>
+                            </div>`
+                                }
+                            })
+                        } else {
+                            console.log('ERRO!')
+                        }
+                    })
+                    .catch(function (resposta) {
+                        console.log(`#ERRO: ${resposta}`);
+                    });
+                
+            }
+
+            atualizar_registros();
 </script>
