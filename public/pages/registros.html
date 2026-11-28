@@ -256,7 +256,7 @@
                                     registros_box.innerHTML += `
                             <div class="conteinerDisposto01">
                                 <div class="colunaCaixa">${caixa}</div>
-                                <div class="colunaInicio">${duracao} min</div>
+                                <div class="colunaInicio">${(duracao/60).toFixed(0)} min</div>
                                 <div class="colunaData">${data_formatada}</div>
                                 <div class="colunaStatus">
                                 <div class="blocosdeStatusRegistro statusCritico"> Cheio </div>
